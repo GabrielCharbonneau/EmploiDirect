@@ -43,6 +43,13 @@ class AppController extends Controller
 
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
+        $this->loadComponent('Auth', [
+            'authenticate' => [
+                'Form' => [
+                    'fields' => ['username' => 'email', 'password' => 'password']
+                ]
+            ]
+        ]); // TODO ajuster la redirection du login/logout
     }
 
     /**
@@ -58,5 +65,9 @@ class AppController extends Controller
         ) {
             $this->set('_serialize', true);
         }
+    }
+    
+    public function beforeFilter(Event $event) {
+        $this->Auth->allow(['index', 'view', 'display']);
     }
 }
