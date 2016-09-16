@@ -2,8 +2,9 @@
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
         <li><?= $this->Html->link(__('New Offer'), ['action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Offers'), ['controller' => 'Offers', 'action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('List Enterprises'), ['controller' => 'Enterprises', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Enterprise'), ['controller' => 'Enterprises', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Candidates'), ['controller' => 'Candidates', 'action' => 'index']) ?></li>
     </ul>
 </nav>
 <div class="offers index large-9 medium-8 columns content">
@@ -12,13 +13,13 @@
         <thead>
             <tr>
                 <th scope="col"><?= $this->Paginator->sort('name') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('jobName') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('scholarity') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('sector') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('job') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('jobType') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('jobSituation') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('jobBeginningDate') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('Job Name') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('Scholarity') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('Sector') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('Job') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('Job Type') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('Job Situation') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('Job Beginning Date') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('enterprise_id') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
@@ -37,8 +38,6 @@
                 <td><?= $offer->has('enterprise') ? $this->Html->link($offer->enterprise->name, ['controller' => 'Enterprises', 'action' => 'view', $offer->enterprise->id]) : '' ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $offer->id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $offer->id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $offer->id], ['confirm' => __('Are you sure you want to delete # {0}?', $offer->id)]) ?>
                 </td>
             </tr>
             <?php endforeach; ?>

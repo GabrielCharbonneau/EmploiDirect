@@ -5,6 +5,8 @@
         <li><?= $this->Form->postLink(__('Delete Candidate'), ['action' => 'delete', $candidate->id], ['confirm' => __('Are you sure you want to delete # {0}?', $candidate->id)]) ?> </li>
         <li><?= $this->Html->link(__('List Candidates'), ['action' => 'index']) ?> </li>
         <li><?= $this->Html->link(__('New Candidate'), ['action' => 'add']) ?> </li>
+        <li><?= $this->Html->link(__('List Offers'), ['controller' => 'Offers', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('List Enterprises'), ['controller' => 'Enterprises', 'action' => 'index']) ?></li>
     </ul>
 </nav>
 <div class="candidates view large-9 medium-8 columns content">
@@ -21,14 +23,6 @@
         <tr>
             <th scope="row"><?= __('Address') ?></th>
             <td><?= h($candidate->Address) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Id') ?></th>
-            <td><?= $this->Number->format($candidate->id) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('User Id') ?></th>
-            <td><?= $this->Number->format($candidate->user_id) ?></td>
         </tr>
     </table>
 </div>

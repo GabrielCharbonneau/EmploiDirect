@@ -5,6 +5,9 @@
         <li><?= $this->Form->postLink(__('Delete Postulation'), ['action' => 'delete', $postulation->id], ['confirm' => __('Are you sure you want to delete # {0}?', $postulation->id)]) ?> </li>
         <li><?= $this->Html->link(__('List Postulations'), ['action' => 'index']) ?> </li>
         <li><?= $this->Html->link(__('New Postulation'), ['action' => 'add']) ?> </li>
+        <li><?= $this->Html->link(__('List Offers'), ['controller' => 'Offers', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('List Enterprises'), ['controller' => 'Enterprises', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('List Candidates'), ['controller' => 'Candidates', 'action' => 'index']) ?></li>
     </ul>
 </nav>
 <div class="postulations view large-9 medium-8 columns content">

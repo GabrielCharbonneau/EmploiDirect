@@ -1,0 +1,74 @@
+<?php
+namespace App\Test\TestCase\Model\Table;
+
+use App\Model\Table\EnterprisesTable;
+use Cake\ORM\TableRegistry;
+use Cake\TestSuite\TestCase;
+
+/**
+ * App\Model\Table\EnterprisesTable Test Case
+ */
+class EnterprisesTableTest extends TestCase
+{
+
+    /**
+     * Test subject
+     *
+     * @var \App\Model\Table\EnterprisesTable
+     */
+    public $Enterprises;
+
+    /**
+     * Fixtures
+     *
+     * @var array
+     */
+    public $fixtures = [
+        'app.enterprises',
+        'app.offers'
+    ];
+
+    /**
+     * setUp method
+     *
+     * @return void
+     */
+    public function setUp()
+    {
+        parent::setUp();
+        $config = TableRegistry::exists('Enterprises') ? [] : ['className' => 'App\Model\Table\EnterprisesTable'];
+        $this->Enterprises = TableRegistry::get('Enterprises', $config);
+    }
+
+    /**
+     * tearDown method
+     *
+     * @return void
+     */
+    public function tearDown()
+    {
+        unset($this->Enterprises);
+
+        parent::tearDown();
+    }
+
+    /**
+     * Test initialize method
+     *
+     * @return void
+     */
+    public function testInitialize()
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
+
+    /**
+     * Test validationDefault method
+     *
+     * @return void
+     */
+    public function testValidationDefault()
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
+}

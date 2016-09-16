@@ -2,6 +2,10 @@
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
         <li><?= $this->Html->link(__('New Postulation'), ['action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Offers'), ['controller' => 'Offers', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('List Enterprises'), ['controller' => 'Enterprises', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('List Candidates'), ['controller' => 'Candidates', 'action' => 'index']) ?></li>
+
     </ul>
 </nav>
 <div class="postulations index large-9 medium-8 columns content">
@@ -9,18 +13,15 @@
     <table cellpadding="0" cellspacing="0">
         <thead>
             <tr>
-                <th scope="col"><?= $this->Paginator->sort('DatePostulation') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('Date Postulation') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('CV') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('PresentationLetter') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('Presentation Letter') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
         </thead>
         <tbody>
             <?php foreach ($postulations as $postulation): ?>
             <tr>
-                <td><?= $this->Number->format($postulation->id) ?></td>
-                <td><?= $this->Number->format($postulation->idCandidate) ?></td>
-                <td><?= $this->Number->format($postulation->idOffer) ?></td>
                 <td><?= h($postulation->DatePostulation) ?></td>
                 <td><?= h($postulation->CV) ?></td>
                 <td><?= h($postulation->PresentationLetter) ?></td>
