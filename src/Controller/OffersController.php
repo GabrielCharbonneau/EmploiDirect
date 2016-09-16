@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Event\Event;
 
 /**
  * Offers Controller
@@ -112,5 +113,9 @@ class OffersController extends AppController
         }
 
         return $this->redirect(['action' => 'index']);
+    }
+    
+    public function beforeFilter(Event $event) {
+        $this->Auth->allow(['index', 'view']);
     }
 }

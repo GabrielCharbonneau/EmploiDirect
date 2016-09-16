@@ -19,7 +19,6 @@
         <tbody>
             <?php foreach ($candidates as $candidate): ?>
             <tr>
-                <td><?= $this->Number->format($candidate->id) ?></td>
                 <td><?= h($candidate->FirstName) ?></td>
                 <td><?= h($candidate->LastName) ?></td>
                 <td><?= h($candidate->Address) ?></td>

@@ -51,6 +51,8 @@ class CandidatesController extends AppController
         $candidate = $this->Candidates->newEntity();
         if ($this->request->is('post')) {
             $candidate = $this->Candidates->patchEntity($candidate, $this->request->data);
+            // Ajoute le id user
+            $candidate->user_id = $this->Auth->user('id');
             if ($this->Candidates->save($candidate)) {
                 $this->Flash->success(__('The candidate has been saved.'));
 
