@@ -58,12 +58,8 @@ class EnterprisesTable extends Table
             ->notEmpty('name');
 
         $validator
-            ->requirePresence('email_address', 'create')
-            ->notEmpty('email_address');
-
-        $validator
-            ->requirePresence('password', 'create')
-            ->notEmpty('password');
+            ->requirePresence('description', 'create')
+            ->notEmpty('description');
 
         return $validator;
     }
