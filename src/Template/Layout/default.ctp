@@ -50,6 +50,10 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
                                 echo $this->Html->link($user . ' logout', ['controller' => 'Users', 'action' => 'logout']);
                         } else {
                                 echo $this->Html->link('login', ['controller' => 'Users', 'action' => 'login']);
+                                echo '</li><li>';
+                                echo $this->Html->link('create candidate account', ['controller' => 'Users', 'action' => 'createCandidateAccount']);
+                                echo '</li><li>';
+                                echo $this->Html->link('create enterprise account', ['controller' => 'Users', 'action' => 'createEnterpriseAccount']);
                         }
                     ?>
                     </li>
