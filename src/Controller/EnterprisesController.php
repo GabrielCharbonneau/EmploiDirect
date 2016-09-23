@@ -138,7 +138,7 @@ class EnterprisesController extends AppController {
 
 
 
-        parent::isAuthorized($user);
+        return parent::isAuthorized($user);
     }
 
 }

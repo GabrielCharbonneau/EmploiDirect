@@ -110,9 +110,13 @@ class PostulationsController extends AppController
     }
     
     public function isAuthorized($user) {
+        $action = $this->request->action;
+        
         if ($user && $user['role'] === 'enterprise') {
-            $this->Flash->error(__('Only candidates can postulate.'));
-            return false;
+            if($action === 'add') {
+                $this->Flash->error(__('Only candidates can postulate.'));
+                return false;
+            }
         }
         
         if($user && $user['role'] === 'candidate') {
@@ -121,6 +125,6 @@ class PostulationsController extends AppController
             }
         }
 
-        parent::isAuthorized($user);
+        return parent::isAuthorized($user);
     }
 }
