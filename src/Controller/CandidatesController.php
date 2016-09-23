@@ -56,9 +56,9 @@ class CandidatesController extends AppController
             if ($this->Candidates->save($candidate)) {
                 $this->Flash->success(__('The candidate has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['controller' => 'offers', 'action' => 'index']);
             } else {
-                $this->Flash->error(__('The candidate could not be saved. Please, try again.'));
+                $this->Flash->error(__('Your profile could not be saved. Please, try again.'));
             }
         }
         $this->set(compact('candidate'));
@@ -135,11 +135,11 @@ class CandidatesController extends AppController
                 return true;
             }
             if($action === 'add') {
-                $this->Flash->error(__('You can\'t create an enterprise profile on a candidate account.'));
+                $this->Flash->error(__('You can\'t create a candidate profile on an enterprise account.'));
                 return false;
             }
             if($action === 'edit') {
-                $this->Flash->error(__('You can\'t edit an enterprise profile on a candidate account.'));
+                $this->Flash->error(__('You can\'t edit a candidate profile on an enterprise account.'));
                 return false;
             }
             if($action === 'index') {
