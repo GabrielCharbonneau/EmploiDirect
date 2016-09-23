@@ -19,7 +19,7 @@ class CandidatesController extends AppController
     public function index()
     {
         $candidates = $this->paginate($this->Candidates);
-
+        
         $this->set(compact('candidates'));
         $this->set('_serialize', ['candidates']);
     }
@@ -109,5 +109,9 @@ class CandidatesController extends AppController
         }
 
         return $this->redirect(['action' => 'index']);
+    }
+    
+    public function isAuthorized($user) {
+        parent::isAuthorized($user);
     }
 }

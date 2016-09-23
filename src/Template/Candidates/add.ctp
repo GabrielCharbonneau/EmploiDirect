@@ -7,12 +7,11 @@
 <div class="candidates form large-9 medium-8 columns content">
     <?= $this->Form->create($candidate) ?>
     <fieldset>
-        <legend><?= __('Add Candidate') ?></legend>
+        <legend><?= __('Edit profile') ?></legend>
         <?php
             echo $this->Form->input('FirstName');
             echo $this->Form->input('LastName');
             echo $this->Form->input('Address');
-            echo $this->Form->hidden('user_id');
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>

@@ -36,9 +36,8 @@ class UsersTable extends Table
         $this->displayField('id');
         $this->primaryKey('id');
 
-        $this->hasMany('Enterprises', [
-            'foreignKey' => 'user_id'
-        ]);
+        $this->hasOne('Enterprises');
+        $this->hasOne('Candidates');
     }
 
     /**

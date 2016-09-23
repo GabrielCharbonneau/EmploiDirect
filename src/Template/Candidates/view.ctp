@@ -8,27 +8,19 @@
     </ul>
 </nav>
 <div class="candidates view large-9 medium-8 columns content">
-    <h3><?= h($candidate->id) ?></h3>
+    <h3><?= h($candidate->FirstName) . ' ' . h($candidate->LastName) ?></h3>
     <table class="vertical-table">
         <tr>
-            <th scope="row"><?= __('FirstName') ?></th>
+            <th scope="row"><?= __('First name') ?></th>
             <td><?= h($candidate->FirstName) ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('LastName') ?></th>
+            <th scope="row"><?= __('Last name') ?></th>
             <td><?= h($candidate->LastName) ?></td>
         </tr>
         <tr>
             <th scope="row"><?= __('Address') ?></th>
             <td><?= h($candidate->Address) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Id') ?></th>
-            <td><?= $this->Number->format($candidate->id) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('User Id') ?></th>
-            <td><?= $this->Number->format($candidate->user_id) ?></td>
         </tr>
     </table>
 </div>
