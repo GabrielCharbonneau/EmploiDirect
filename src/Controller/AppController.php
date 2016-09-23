@@ -48,6 +48,15 @@ class AppController extends Controller
                 'Form' => [
                     'fields' => ['username' => 'email', 'password' => 'password']
                 ]
+            ],
+            'authorize' => ['Controller'],
+            'loginRedirect' => [
+                'controller' => 'Offers',
+                'action' => 'index'
+            ],
+            'logoutRedirect' => [
+                'controller' => 'Offers',
+                'action' => 'index'
             ]
         ]); // TODO ajuster la redirection du login/logout
     }

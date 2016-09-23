@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Controller;
 
 use App\Controller\AppController;
@@ -9,16 +10,14 @@ use Cake\Event\Event;
  *
  * @property \App\Model\Table\OffersTable $Offers
  */
-class OffersController extends AppController
-{
+class OffersController extends AppController {
 
     /**
      * Index method
      *
      * @return \Cake\Network\Response|null
      */
-    public function index()
-    {
+    public function index() {
         $this->paginate = [
             'contain' => ['Enterprises']
         ];
@@ -35,8 +34,7 @@ class OffersController extends AppController
      * @return \Cake\Network\Response|null
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function view($id = null)
-    {
+    public function view($id = null) {
         $offer = $this->Offers->get($id, [
             'contain' => ['Enterprises']
         ]);
@@ -50,8 +48,7 @@ class OffersController extends AppController
      *
      * @return \Cake\Network\Response|void Redirects on successful add, renders view otherwise.
      */
-    public function add()
-    {
+    public function add() {
         $offer = $this->Offers->newEntity();
         if ($this->request->is('post')) {
             $offer = $this->Offers->patchEntity($offer, $this->request->data);
@@ -75,8 +72,7 @@ class OffersController extends AppController
      * @return \Cake\Network\Response|void Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Network\Exception\NotFoundException When record not found.
      */
-    public function edit($id = null)
-    {
+    public function edit($id = null) {
         $offer = $this->Offers->get($id, [
             'contain' => []
         ]);
@@ -102,8 +98,7 @@ class OffersController extends AppController
      * @return \Cake\Network\Response|null Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function delete($id = null)
-    {
+    public function delete($id = null) {
         $this->request->allowMethod(['post', 'delete']);
         $offer = $this->Offers->get($id);
         if ($this->Offers->delete($offer)) {
@@ -114,8 +109,27 @@ class OffersController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
-    
+
     public function beforeFilter(Event $event) {
         $this->Auth->allow(['index', 'view']);
     }
+
+    public function isAuthorized($user) {
+        if (isset($user['role']) && $user['role'] === 'admin') {
+            return true;
+        }
+        
+        if ($user && $user['role'] === 'enterprise' && $this->request->action === 'add') {
+            return true;
+        } else {
+            $this->Flash->error(__('Only enterprises can add offers.'));
+        }
+        
+        if($user && $this->request->action === 'view') {
+            return true;
+        }
+
+        parent::isAuthorized($user);
+    }
+
 }
