@@ -90,4 +90,27 @@
             <td><?= h($offer->jobBeginningDate) ?></td>
         </tr>
     </table>
+
+    <div class="related">
+        <h4><?= __('Related Postulations') ?></h4>
+        <?php if (!empty($offer->postulations)): ?>
+        <table cellpadding="0" cellspacing="0">
+            <tr>
+                <th scope="col"><?= __('Candidate') ?></th>
+                <th scope="col"><?= __('CV') ?></th>
+                <th scope="col" class="actions"><?= __('Actions') ?></th>
+            </tr>
+            <?php foreach ($offer->postulations as $postulations): ?>
+            <tr>
+                <td><?= $this->Html->link($postulations->idCandidate, ['controller' => 'Candidates', 'action' => 'view', $postulations->idCandidate]) ?></td>
+                <td><?= h($postulations->CV) ?></td>
+                <td class="actions">
+                    <?= $this->Html->link(__('View'), ['controller' => 'Postulations', 'action' => 'view', $postulations->id]) ?>
+                </td>
+            </tr>
+            <?php endforeach; ?>
+        </table>
+        <?php endif; ?>
+    </div>
+             
 </div>

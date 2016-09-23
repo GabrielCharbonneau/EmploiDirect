@@ -36,8 +36,10 @@ class OffersController extends AppController {
      */
     public function view($id = null) {
         $offer = $this->Offers->get($id, [
-            'contain' => ['Enterprises']
+            'contain' => ['Enterprises', 'Postulations']
         ]);
+        
+        
 
         $this->set('offer', $offer);
         $this->set('_serialize', ['offer']);

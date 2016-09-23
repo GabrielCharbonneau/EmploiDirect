@@ -40,6 +40,10 @@ class OffersTable extends Table
             'foreignKey' => 'enterprise_id',
             'joinType' => 'INNER'
         ]);
+        
+        $this->hasMany('Postulations', [
+            'foreignKey' => 'idOffer'
+        ]);
     }
 
     /**

@@ -56,7 +56,7 @@ class UsersController extends AppController
             if ($this->Users->save($user)) {
                 $this->Flash->success(__('The user has been saved.'));
                 $this->Auth->setUser($user);
-                return $this->redirect(['controller' => 'Candidates', 'action' => 'add']);
+                return $this->redirect(['controller' => 'Enterprises', 'action' => 'add']);
             } else {
                 $this->Flash->error(__('The user could not be saved. Please, try again.'));
             }

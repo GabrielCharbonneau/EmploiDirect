@@ -33,6 +33,12 @@ class PostulationsTable extends Table
         $this->table('postulations');
         $this->displayField('id');
         $this->primaryKey('id');
+        
+        
+         $this->hasOne('Candidate', [
+            'foreignKey' => 'idCandidate',
+            'joinType' => 'INNER'
+        ]);
     }
 
     /**
