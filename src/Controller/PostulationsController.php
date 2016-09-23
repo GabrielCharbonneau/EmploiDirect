@@ -46,11 +46,15 @@ class PostulationsController extends AppController
      *
      * @return \Cake\Network\Response|void Redirects on successful add, renders view otherwise.
      */
-    public function add()
+    public function add($id)
     {
         $postulation = $this->Postulations->newEntity();
         if ($this->request->is('post')) {
             $postulation = $this->Postulations->patchEntity($postulation, $this->request->data);
+            $this->loadModel('Candidates');
+            $candidate = $this->Candidates->find('all', ['conditions' => ['user_id' => $this->Auth->User('id')]])->first();
+            $postulation->idCandidate = $candidate['id'];
+            $postulation->idOffer = $id;
             if ($this->Postulations->save($postulation)) {
                 $this->Flash->success(__('The postulation has been saved.'));
 
@@ -116,6 +120,10 @@ class PostulationsController extends AppController
             if($action === 'add') {
                 $this->Flash->error(__('Only candidates can postulate.'));
                 return false;
+            }
+            if($action === 'view') {
+                $this->loadModel('Enterprises');
+                $this->loadModel('Offers');
             }
         }
         
