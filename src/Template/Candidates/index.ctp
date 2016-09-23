@@ -24,7 +24,6 @@
                 <td><?= h($candidate->FirstName) ?></td>
                 <td><?= h($candidate->LastName) ?></td>
                 <td><?= h($candidate->Address) ?></td>
-                <td><?= $this->Number->format($candidate->user_id) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $candidate->id]) ?>
                 </td>

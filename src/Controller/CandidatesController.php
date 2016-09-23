@@ -112,6 +112,43 @@ class CandidatesController extends AppController
     }
     
     public function isAuthorized($user) {
+        if (isset($user['role']) && $user['role'] === 'admin') {
+            return true;
+        }
+        
+        $action = $this->request->action;
+        
+        if ($user && $user['role'] === 'candidate') {
+            if($action === 'add') {
+                $this->loadModel('Candidates');
+                $candidate = $this->Candidates->find('all', ['conditions' => ['user_id' => $user['id']]])->first();
+                if($candidate) {
+                    $this->Flash->error(__('You already have a profile'));
+                    return false;
+                }
+                return true;
+            }
+        }
+        
+        if($user && $user['role'] === 'enterprise') {
+            if($action === 'view') {
+                return true;
+            }
+            if($action === 'add') {
+                $this->Flash->error(__('You can\'t create an enterprise profile on a candidate account.'));
+                return false;
+            }
+            if($action === 'edit') {
+                $this->Flash->error(__('You can\'t edit an enterprise profile on a candidate account.'));
+                return false;
+            }
+            if($action === 'index') {
+                return true;
+            }
+        }
+
+
+
         parent::isAuthorized($user);
     }
 }
