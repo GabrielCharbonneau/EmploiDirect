@@ -35,10 +35,7 @@ class PostulationsTable extends Table
         $this->primaryKey('id');
         
         
-         $this->hasOne('Candidate', [
-            'foreignKey' => 'idCandidate',
-            'joinType' => 'INNER'
-        ]);
+         $this->hasOne('Candidates');
     }
 
     /**

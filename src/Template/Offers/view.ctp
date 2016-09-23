@@ -12,6 +12,7 @@
 </nav>
 <div class="offers view large-9 medium-8 columns content">
     <h3><?= h($offer->name) ?></h3>
+    <?= $this->Html->link(__('Postulate'), ['controller' => 'Postulations', 'action' => 'add', $offer->id]) ?>
     <table class="vertical-table">
         <tr>
             <th scope="row"><?= __('Name') ?></th>
@@ -102,7 +103,7 @@
             </tr>
             <?php foreach ($offer->postulations as $postulations): ?>
             <tr>
-                <td><?= $this->Html->link($postulations->idCandidate, ['controller' => 'Candidates', 'action' => 'view', $postulations->idCandidate]) ?></td>
+                <td><?= $this->Html->link(__('View candidate'), ['controller' => 'Candidates', 'action' => 'view', $postulations->idCandidate]) ?></td>
                 <td><?= h($postulations->CV) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['controller' => 'Postulations', 'action' => 'view', $postulations->id]) ?>

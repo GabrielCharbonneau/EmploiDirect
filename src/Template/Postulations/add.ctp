@@ -18,7 +18,7 @@
             echo $this->Form->input('CV');
             echo $this->Form->input('PresentationLetter');
         ?>
-    </fieldset> edd
+    </fieldset>
     <?= $this->Form->button(__('Submit')) ?>
     <?= $this->Form->end() ?>
 </div>
