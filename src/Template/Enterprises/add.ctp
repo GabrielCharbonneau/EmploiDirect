@@ -12,8 +12,7 @@
         <legend><?= __('Add Enterprise') ?></legend>
         <?php
             echo $this->Form->input('name');
-            echo $this->Form->input('email_address');
-            echo $this->Form->input('password');
+            echo $this->Form->input('description');
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>
