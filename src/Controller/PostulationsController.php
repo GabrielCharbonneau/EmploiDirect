@@ -108,4 +108,19 @@ class PostulationsController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+    
+    public function isAuthorized($user) {
+        if ($user && $user['role'] === 'enterprise') {
+            $this->Flash->error(__('Only candidates can postulate.'));
+            return false;
+        }
+        
+        if($user && $user['role'] === 'candidate') {
+            if($this->request->action === 'add') {
+                return true;
+            }
+        }
+
+        parent::isAuthorized($user);
+    }
 }
