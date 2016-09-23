@@ -49,11 +49,11 @@ $cakeDescription = 'EmploiDirect';
                                 $user = $loguser['email'];
                                 echo $this->Html->link($user . ' logout', ['controller' => 'Users', 'action' => 'logout']);
                         } else {
-                                echo $this->Html->link('login', ['controller' => 'Users', 'action' => 'login']);
+                                echo $this->Html->link('Login', ['controller' => 'Users', 'action' => 'login']);
                                 echo '</li><li>';
-                                echo $this->Html->link('create candidate account', ['controller' => 'Users', 'action' => 'createCandidateAccount']);
+                                echo $this->Html->link('Create Candidate Account', ['controller' => 'Users', 'action' => 'createCandidateAccount']);
                                 echo '</li><li>';
-                                echo $this->Html->link('create enterprise account', ['controller' => 'Users', 'action' => 'createEnterpriseAccount']);
+                                echo $this->Html->link('Create Enterprise Account', ['controller' => 'Users', 'action' => 'createEnterpriseAccount']);
                         }
                     ?>
                     </li>

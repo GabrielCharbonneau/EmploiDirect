@@ -111,11 +111,7 @@ class CandidatesController extends AppController
         return $this->redirect(['action' => 'index']);
     }
     
-    public function isAuthorized($user) {
-        if (isset($user['role']) && $user['role'] === 'admin') {
-            return true;
-        }
-        
+    public function isAuthorized($user) {        
         $action = $this->request->action;
         
         if ($user && $user['role'] === 'candidate') {

@@ -115,9 +115,6 @@ class OffersController extends AppController {
     }
 
     public function isAuthorized($user) {
-        if (isset($user['role']) && $user['role'] === 'admin') {
-            return true;
-        }
         
         if ($user && $user['role'] === 'enterprise' && $this->request->action === 'add') {
             return true;
