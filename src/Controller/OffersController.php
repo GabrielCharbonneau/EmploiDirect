@@ -117,18 +117,18 @@ class OffersController extends AppController {
     }
 
     public function isAuthorized($user) {
-        
         if ($user && $user['role'] === 'enterprise' && $this->request->action === 'add') {
             return true;
-        } else {
-            $this->Flash->error(__('Only enterprises can add offers.'));
         }
         
+        if($user && $user['role'] === 'candidate') {
+            
+        }
         if($user && $this->request->action === 'view') {
             return true;
         }
 
-        parent::isAuthorized($user);
+        return parent::isAuthorized($user);
     }
 
 }
