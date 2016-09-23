@@ -17,12 +17,8 @@
             <td><?= h($enterprise->name) ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('Email Address') ?></th>
-            <td><?= h($enterprise->email_address) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Id') ?></th>
-            <td><?= $this->Number->format($enterprise->id) ?></td>
+            <th scope="row"><?= __('Description') ?></th>
+            <td><?= h($enterprise->description) ?></td>
         </tr>
     </table>
     <div class="related">

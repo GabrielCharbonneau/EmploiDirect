@@ -13,8 +13,7 @@
         <thead>
             <tr>
                 <th scope="col"><?= $this->Paginator->sort('name') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('email_address') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('password') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('description') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
         </thead>
@@ -22,8 +21,7 @@
             <?php foreach ($enterprises as $enterprise): ?>
             <tr>
                 <td><?= h($enterprise->name) ?></td>
-                <td><?= h($enterprise->email_address) ?></td>
-                <td><?= h($enterprise->password) ?></td>
+                <td><?= h($enterprise->description) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $enterprise->id]) ?>
                 </td>
