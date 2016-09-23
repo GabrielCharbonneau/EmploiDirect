@@ -61,11 +61,6 @@ class PostulationsTable extends Table
             ->notEmpty('idOffer');
 
         $validator
-            ->date('DatePostulation')
-            ->requirePresence('DatePostulation', 'create')
-            ->notEmpty('DatePostulation');
-
-        $validator
             ->requirePresence('CV', 'create')
             ->notEmpty('CV');
 

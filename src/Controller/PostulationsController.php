@@ -55,6 +55,7 @@ class PostulationsController extends AppController
             $candidate = $this->Candidates->find('all', ['conditions' => ['user_id' => $this->Auth->User('id')]])->first();
             $postulation->idCandidate = $candidate['id'];
             $postulation->idOffer = $id;
+            $postulation->DatePostulation = Date('Y-m-d');
             if ($this->Postulations->save($postulation)) {
                 $this->Flash->success(__('The postulation has been saved.'));
 
@@ -124,6 +125,7 @@ class PostulationsController extends AppController
             if($action === 'view') {
                 $this->loadModel('Enterprises');
                 $this->loadModel('Offers');
+                //TODO
             }
         }
         
