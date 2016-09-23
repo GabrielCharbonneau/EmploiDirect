@@ -1,0 +1,194 @@
+-- phpMyAdmin SQL Dump
+-- version 4.4.15.5
+-- http://www.phpmyadmin.net
+--
+-- Host: localhost
+-- Generation Time: Sep 16, 2016 at 03:50 PM
+-- Server version: 5.6.30
+-- PHP Version: 5.5.35
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `ED`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `candidates`
+--
+
+CREATE TABLE IF NOT EXISTS `candidates` (
+  `id` int(11) NOT NULL,
+  `FirstName` varchar(50) NOT NULL,
+  `LastName` varchar(50) NOT NULL,
+  `Address` varchar(100) NOT NULL,
+  `user_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `enterprises`
+--
+
+CREATE TABLE IF NOT EXISTS `enterprises` (
+  `id` int(11) NOT NULL,
+  `name` varchar(25) COLLATE utf8_unicode_ci NOT NULL,
+  `email_address` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `password` varchar(50) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `enterprises`
+--
+
+INSERT INTO `enterprises` (`id`, `name`, `email_address`, `password`) VALUES
+(1, 'Singe', 'Singe', 'Singe');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `offers`
+--
+
+CREATE TABLE IF NOT EXISTS `offers` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `description` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
+  `publicationBeginningDate` date NOT NULL,
+  `publicationEndDate` date NOT NULL,
+  `jobName` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `displayDate` date NOT NULL,
+  `responsabilitties` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
+  `aptitudes` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `requirements` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `strengths` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `generalRemark` varchar(500) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `scholarity` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `sector` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `job` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `jobType` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `jobSituation` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+  `jobBeginningDate` date NOT NULL,
+  `enterprise_id` int(11) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `offers`
+--
+
+INSERT INTO `offers` (`id`, `name`, `description`, `publicationBeginningDate`, `publicationEndDate`, `jobName`, `displayDate`, `responsabilitties`, `aptitudes`, `requirements`, `strengths`, `generalRemark`, `scholarity`, `sector`, `job`, `jobType`, `jobSituation`, `jobBeginningDate`, `enterprise_id`) VALUES
+(3, 'eerererw', 'rewerwerwer weijeerw ouierh ewhuerwh uwer huwer uire weewruhr euiewrhe', '2016-09-09', '2016-09-09', 'ewrrewerw wrehew rhrhew', '2016-09-09', 'erwerw', 'erwewr', 'erwer', 'reerwerw', 'ewrerw', 'erwwererw', 'erwrewe', 'werew', 'rewerw', '1', '2016-09-09', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `postulations`
+--
+
+CREATE TABLE IF NOT EXISTS `postulations` (
+  `id` int(11) NOT NULL,
+  `idCandidate` int(11) NOT NULL,
+  `idOffer` int(11) NOT NULL,
+  `DatePostulation` date NOT NULL,
+  `CV` varchar(50) NOT NULL,
+  `PresentationLetter` varchar(200) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users`
+--
+
+CREATE TABLE IF NOT EXISTS `users` (
+  `id` int(11) NOT NULL,
+  `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `password` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `role` varchar(30) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `candidates`
+--
+ALTER TABLE `candidates`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `enterprises`
+--
+ALTER TABLE `enterprises`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `offers`
+--
+ALTER TABLE `offers`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `enterprise_key` (`enterprise_id`);
+
+--
+-- Indexes for table `postulations`
+--
+ALTER TABLE `postulations`
+  ADD KEY `candidate_key` (`idCandidate`),
+  ADD KEY `offer_key` (`idOffer`);
+
+--
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `candidates`
+--
+ALTER TABLE `candidates`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `enterprises`
+--
+ALTER TABLE `enterprises`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `offers`
+--
+ALTER TABLE `offers`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `offers`
+--
+ALTER TABLE `offers`
+  ADD CONSTRAINT `enterprise_key` FOREIGN KEY (`enterprise_id`) REFERENCES `enterprises` (`id`);
+
+--
+-- Constraints for table `postulations`
+--
+ALTER TABLE `postulations`
+  ADD CONSTRAINT `candidate_key` FOREIGN KEY (`idCandidate`) REFERENCES `candidates` (`id`),
+  ADD CONSTRAINT `offer_key` FOREIGN KEY (`idOffer`) REFERENCES `offers` (`id`);
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
