@@ -14,7 +14,7 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
-$cakeDescription = 'CakePHP: the rapid development php framework';
+$cakeDescription = 'EmploiDirect';
 ?>
 <!DOCTYPE html>
 <html>
@@ -25,7 +25,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
         <?= $cakeDescription ?>:
         <?= $this->fetch('title') ?>
         </title>
-    <?= $this->Html->meta('icon') ?>
+        <?php echo $this->Html->meta( 'favicon.ico', '/favicon.ico', array('type' => 'icon') ); ?>
 
     <?= $this->Html->css('base.css') ?>
     <?= $this->Html->css('cake.css') ?>
