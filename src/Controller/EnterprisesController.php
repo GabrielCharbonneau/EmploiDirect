@@ -52,7 +52,7 @@ class EnterprisesController extends AppController {
             if ($this->Enterprises->save($enterprise)) {
                 $this->Flash->success(__('The enterprise has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['controller' => 'offers', 'action' => 'index']);
             } else {
                 $this->Flash->error(__('The enterprise could not be saved. Please, try again.'));
             }

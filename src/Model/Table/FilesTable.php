@@ -37,6 +37,7 @@ class FilesTable extends Table
         $this->primaryKey('id');
 
         $this->addBehavior('Timestamp');
+        $this->hasOne('Postulations');
     }
 
     /**
@@ -47,23 +48,6 @@ class FilesTable extends Table
      */
     public function validationDefault(Validator $validator)
     {
-        $validator
-            ->integer('id')
-            ->allowEmpty('id', 'create');
-
-        $validator
-            ->requirePresence('name', 'create')
-            ->notEmpty('name');
-
-        $validator
-            ->requirePresence('path', 'create')
-            ->notEmpty('path');
-
-        $validator
-            ->boolean('status')
-            ->requirePresence('status', 'create')
-            ->notEmpty('status');
-
         return $validator;
     }
 }

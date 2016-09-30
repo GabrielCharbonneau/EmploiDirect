@@ -15,7 +15,7 @@
     <table class="vertical-table">
         <tr>
             <th scope="row"><?= __('CV') ?></th>
-            <td><?= h($postulation->CV) ?></td>
+            <td><?= $this->Html->link(__('Download'), '/img/uploads/files/' . $postulation->file['name']) ?></td>
         </tr>
         <tr>
             <th scope="row"><?= __('PresentationLetter') ?></th>

@@ -36,6 +36,7 @@ class PostulationsTable extends Table
         
         
          $this->hasOne('Candidates');
+         $this->hasOne('Files');
     }
 
     /**

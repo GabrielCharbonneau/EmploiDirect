@@ -98,13 +98,11 @@
         <table cellpadding="0" cellspacing="0">
             <tr>
                 <th scope="col"><?= __('Candidate') ?></th>
-                <th scope="col"><?= __('CV') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
             <?php foreach ($offer->postulations as $postulations): ?>
             <tr>
                 <td><?= $this->Html->link(__('View candidate'), ['controller' => 'Candidates', 'action' => 'view', $postulations->idCandidate]) ?></td>
-                <td><?= h($postulations->CV) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['controller' => 'Postulations', 'action' => 'view', $postulations->id]) ?>
                 </td>

@@ -32,9 +32,9 @@ class PostulationsController extends AppController {
      */
     public function view($id = null) {
         $postulation = $this->Postulations->get($id, [
-            'contain' => []
+            'contain' => ['Files']
         ]);
-
+        
         $this->set('postulation', $postulation);
         $this->set('_serialize', ['postulation']);
     }
@@ -80,8 +80,7 @@ class PostulationsController extends AppController {
             $postulation->DatePostulation = Date('Y-m-d');
             if ($this->Postulations->save($postulation)) {
                 $this->Flash->success(__('The postulation has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['controller' => 'offers', 'action' => 'view', $id]);
             } else {
                 $this->Flash->error(__('The postulation could not be saved. Please, try again.'));
             }
