@@ -47,10 +47,35 @@ class PostulationsController extends AppController {
     public function add($id) {
         $postulation = $this->Postulations->newEntity();
         if ($this->request->is('post')) {
+            $this->loadModel('Files');
+            if(!empty($this->request->data['file']['name'])){
+                $fileName = $this->request->data['file']['name'];
+                $uploadPath = 'uploads/files/';
+                $uploadFile = 'img/' .$uploadPath.$fileName;
+                if(move_uploaded_file($this->request->data['file']['tmp_name'],$uploadFile)){
+                    $uploadData = $this->Files->newEntity();
+                    $uploadData->name = $fileName;
+                    $uploadData->path = $uploadPath;
+                    $uploadData->created = date("Y-m-d H:i:s");
+                    $uploadData->modified = date("Y-m-d H:i:s");
+                    if ($this->Files->save($uploadData)) {
+                        $this->Flash->success(__('File has been uploaded and inserted successfully.'));
+                    }else{
+                        $this->Flash->error(__('Unable to upload file, please try again.'));
+                    }
+                }else{
+                    $this->Flash->error(__('Unable to upload file, please try again.'));
+                }
+            }else{
+                $this->Flash->error(__('Please choose a file to upload.'));
+            }
+            
+            
+            
             $postulation = $this->Postulations->patchEntity($postulation, $this->request->data);
             $this->loadModel('Candidates');
             $candidate = $this->Candidates->find('all', ['conditions' => ['user_id' => $this->Auth->User('id')]])->first();
-            $postulation->idCandidate = $candidate['id'];
+            $postulation->idCandidate = $candidate['id'];;
             $postulation->idOffer = $id;
             $postulation->DatePostulation = Date('Y-m-d');
             if ($this->Postulations->save($postulation)) {

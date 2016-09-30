@@ -8,14 +8,14 @@
     </ul>
 </nav>
 <div class="postulations form large-9 medium-8 columns content">
-    <?= $this->Form->create($postulation) ?>
+    <?= $this->Form->create($postulation, ['type' => 'file']) ?>
     <fieldset>
         <legend><?= __('Add Postulation') ?></legend>
         <?php   
             echo $this->Form->hidden('idCandidate', ['default' => '1']);
             echo $this->Form->hidden('idOffer', ['default' => '1']);
             echo $this->Form->hidden('DatePostulation', ['default' => 'now']);
-            echo $this->Form->input('CV');
+            echo $this->Form->input('file', ['type' => 'file', 'class' => 'form-control']);
             echo $this->Form->input('PresentationLetter');
         ?>
     </fieldset>
