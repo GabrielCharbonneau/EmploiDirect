@@ -48,6 +48,7 @@ class EnterprisesController extends AppController {
         $enterprise = $this->Enterprises->newEntity();
         if ($this->request->is('post')) {
             $enterprise = $this->Enterprises->patchEntity($enterprise, $this->request->data);
+            $enterprise->user_id = $this->Auth->user('id');
             if ($this->Enterprises->save($enterprise)) {
                 $this->Flash->success(__('The enterprise has been saved.'));
 

@@ -138,7 +138,13 @@ class PostulationsController extends AppController {
         }
 
         if ($user && $user['role'] === 'candidate') {
-            if ($this->request->action === 'add') {
+            if ($action === 'add') {
+                $this->loadModel('Candidates');
+                $candidateProfile = $this->Candidates->find('all', ['conditions' => ['user_id' => $this->Auth->user('id')]])->first();
+                if(!$candidateProfile) {
+                    $this->Flash->error(__('You need to complete your profile first.'));
+                    return $this->redirect(['controller' => 'Candidates', 'action' => 'add']);
+                }
                 return true;
             }
         }
