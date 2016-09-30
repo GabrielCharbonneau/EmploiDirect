@@ -29,7 +29,6 @@
             echo $this->Form->input('jobType');
             echo $this->Form->input('jobSituation');
             echo $this->Form->input('jobBeginningDate');
-            echo $this->Form->input('enterprise_id', ['options' => $enterprises]);
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>
