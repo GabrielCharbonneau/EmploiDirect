@@ -54,6 +54,8 @@ class OffersController extends AppController {
         $offer = $this->Offers->newEntity();
         if ($this->request->is('post')) {
             $offer = $this->Offers->patchEntity($offer, $this->request->data);
+            $this->loadModel('Enterprises');
+            $offer->enterprise_id = $this->Enterprises->find('all', ['conditions' => ['user_id' => $this->Auth->user('id')]])->first()['id'];
             if ($this->Offers->save($offer)) {
                 $this->Flash->success(__('The offer has been saved.'));
 
