@@ -38,7 +38,10 @@ $cakeDescription = 'EmploiDirect';
         <nav class="top-bar expanded" data-topbar role="navigation">
             <ul class="title-area large-3 medium-4 columns">
                 <li class="name">
-                    <h1><a href="/EmploiDirect/"><img src="logo.png" /></a></h1>
+                    <h1><?= $this->Html->image("logo.png", [
+                        'url' => ['controller' => 'Offers', 'action' => 'index']
+                    ]); ?>
+                    </h1>
                 </li>
             </ul>
             <div class="top-bar-section">
