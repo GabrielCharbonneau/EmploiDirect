@@ -27,7 +27,7 @@
             echo $this->Form->input('sector');
             echo $this->Form->input('job');
             echo $this->Form->input('jobType');
-            echo $this->Form->input('jobSituation');
+            echo $this->Form->input('jobSituation', ['options' => ['plein'=>__('Full-Time'),'partiel' => __('Part-Time')]]);
             echo $this->Form->input('jobBeginningDate');
         ?>
     </fieldset>

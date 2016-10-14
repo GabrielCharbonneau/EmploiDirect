@@ -25,7 +25,7 @@
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($offers as $offer): ?>
+            <?php foreach ($offers as $offer): if($offer->publicationBeginningDate <= date('m/d/y') && $offer->publicationEndDate >= date('m/d/y')) : ?>
             <tr>
                 <td><?= h($offer->name) ?></td>
                 <td><?= h($offer->jobName) ?></td>
@@ -40,7 +40,7 @@
                     <?= $this->Html->link(__('View'), ['action' => 'view', $offer->id]) ?>
                 </td>
             </tr>
-            <?php endforeach; ?>
+            <?php endif; endforeach; ?>
         </tbody>
     </table>
     <div class="paginator">
