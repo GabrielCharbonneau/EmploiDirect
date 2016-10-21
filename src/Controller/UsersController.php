@@ -1,24 +1,24 @@
 <?php
+
 namespace App\Controller;
 
 use App\Controller\AppController;
 use Cake\Event\Event;
+use Cake\Mailer\Email;
 
 /**
  * Users Controller
  *
  * @property \App\Model\Table\UsersTable $Users
  */
-class UsersController extends AppController
-{
+class UsersController extends AppController {
 
     /**
      * Index method
      *
      * @return \Cake\Network\Response|null
      */
-    public function index()
-    {
+    public function index() {
         $users = $this->paginate($this->Users);
 
         $this->set(compact('users'));
@@ -32,8 +32,7 @@ class UsersController extends AppController
      * @return \Cake\Network\Response|null
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function view($id = null)
-    {
+    public function view($id = null) {
         $user = $this->Users->get($id, [
             'contain' => ['Enterprises']
         ]);
@@ -41,14 +40,13 @@ class UsersController extends AppController
         $this->set('user', $user);
         $this->set('_serialize', ['user']);
     }
-    
+
     /**
      * Add method
      *
      * @return \Cake\Network\Response|void Redirects on successful add, renders view otherwise.
      */
-    public function createEnterpriseAccount()
-    {
+    public function createEnterpriseAccount() {
         $user = $this->Users->newEntity();
         if ($this->request->is('post')) {
             $user = $this->Users->patchEntity($user, $this->request->data);
@@ -56,6 +54,13 @@ class UsersController extends AppController
             if ($this->Users->save($user)) {
                 $this->Flash->success(__('Your account has been created.'));
                 $this->Auth->setUser($user);
+                //
+                $email = new Email();
+                $email->to($user['email']);
+                $email->from(['noreply@emploidirect.ca' => 'Emploi Direct']);
+                $email->subject('Your account has been created');
+                $email->send('Your account has successfully been created. You can now fully use www.emploidirect.ca as an enterprise.');
+                //
                 return $this->redirect(['controller' => 'Enterprises', 'action' => 'add']);
             } else {
                 $this->Flash->error(__('Your account could not be created. Please, try again.'));
@@ -64,14 +69,13 @@ class UsersController extends AppController
         $this->set(compact('user'));
         $this->set('_serialize', ['user']);
     }
-    
+
     /**
      * Add method
      *
      * @return \Cake\Network\Response|void Redirects on successful add, renders view otherwise.
      */
-    public function createCandidateAccount()
-    {
+    public function createCandidateAccount() {
         $user = $this->Users->newEntity();
         if ($this->request->is('post')) {
             $user = $this->Users->patchEntity($user, $this->request->data);
@@ -79,6 +83,13 @@ class UsersController extends AppController
             if ($this->Users->save($user)) {
                 $this->Flash->success(__('Your account has been created.'));
                 $this->Auth->setUser($user);
+                //
+                $email = new Email();
+                $email->to($user['email']);
+                $email->from(['noreply@emploidirect.ca' => 'Emploi Direct']);
+                $email->subject('Your account has been created');
+                $email->send('Your account has successfully been created. You can now fully use www.emploidirect.ca as a candidate.');
+                //
                 return $this->redirect(['controller' => 'Candidates', 'action' => 'add']);
             } else {
                 $this->Flash->error(__('Your account could not be created. Please, try again.'));
@@ -95,8 +106,7 @@ class UsersController extends AppController
      * @return \Cake\Network\Response|null Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function delete($id = null)
-    {
+    public function delete($id = null) {
         $this->request->allowMethod(['post', 'delete']);
         $user = $this->Users->get($id);
         if ($this->Users->delete($user)) {
@@ -107,9 +117,8 @@ class UsersController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
-    
-    public function beforeFilter(Event $event)
-    {
+
+    public function beforeFilter(Event $event) {
         parent::beforeFilter($event);
         // Allow users to register and logout.
         // You should not add the "login" action to allow list. Doing so would
@@ -117,8 +126,7 @@ class UsersController extends AppController
         $this->Auth->allow(['createCandidateAccount', 'createEnterpriseAccount', 'logout']);
     }
 
-    public function login()
-    {
+    public function login() {
         if ($this->request->is('post')) {
             $user = $this->Auth->identify();
             if ($user) {
@@ -129,8 +137,8 @@ class UsersController extends AppController
         }
     }
 
-    public function logout()
-    {
+    public function logout() {
         return $this->redirect($this->Auth->logout());
     }
+
 }

@@ -178,7 +178,7 @@ return [
      */
     'EmailTransport' => [
         'default' => [
-            'className' => 'Mail',
+            /*'className' => 'Mail',
             // The following keys are used in SMTP transports
             'host' => 'localhost',
             'port' => 25,
@@ -188,6 +188,16 @@ return [
             'client' => null,
             'tls' => null,
             'url' => env('EMAIL_TRANSPORT_DEFAULT_URL', null),
+        ],
+        'mailjet' => [*/
+            'className' => 'SMTP',
+            'host' => 'in-v3.mailjet.com',
+            'port' => 587,
+            'timeout' => 60,
+            'username' => 'd8726d6b3a6f024a56b13f5ac769540b',
+            'password' => '80e41cf799238068241d730d9f3f0b94',
+            'client' => null,
+            'tls' => null,
         ],
     ],
 
