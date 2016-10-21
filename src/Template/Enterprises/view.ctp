@@ -30,15 +30,15 @@
                 <th scope="col"><?= __('JobName') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
-            <?php foreach ($enterprise->offers as $offers): ?>
+            <?php foreach ($enterprise->offers as $offer): if($offer->publicationBeginningDate <= date('m/d/y') && $offer->publicationEndDate >= date('m/d/y')) : ?>
             <tr>
-                <td><?= h($offers->name) ?></td>
-                <td><?= h($offers->jobName) ?></td>
+                <td><?= h($offer->name) ?></td>
+                <td><?= h($offer->jobName) ?></td>
                 <td class="actions">
-                    <?= $this->Html->link(__('View'), ['controller' => 'Offers', 'action' => 'view', $offers->id]) ?>
+                    <?= $this->Html->link(__('View'), ['controller' => 'Offers', 'action' => 'view', $offer->id]) ?>
                 </td>
             </tr>
-            <?php endforeach; ?>
+            <?php endif;endforeach; ?>
         </table>
         <?php endif; ?>
     </div>
