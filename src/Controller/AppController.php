@@ -74,6 +74,10 @@ class AppController extends Controller
         ) {
             $this->set('_serialize', true);
         }
+        $this->loadModel('Candidates');
+        $candidateProfiles = $this->Candidates->find('all', ['conditions' => ['user_id' => $this->Auth->User('id')]])->first();
+
+        $this->set('logged_in_candidateProfile_id', isset($candidateProfiles['id']) ? $candidateProfiles['id'] : -1);
     }
     
     public function isAuthorized($user) {
@@ -84,4 +88,8 @@ class AppController extends Controller
         
         return false;
     }
+        public function isOwnedBy($candidateId, $userId)
+{
+    return $this->exists(['id' => $candidateId, 'user_id' => $userId]);
+}
 }

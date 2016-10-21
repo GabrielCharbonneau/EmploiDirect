@@ -48,8 +48,12 @@ $cakeDescription = 'EmploiDirect';
                 <ul class="right">
                     <li><?php
                         $loguser = $this->request->session()->read('Auth.User');
+                  
+                       
                          if ($loguser) {
                                 $user = $loguser['email'];
+                                echo '<li>' . $this->Html->Link('My account',['controller' => 'Candidates', 'action' => 'view', $logged_in_candidateProfile_id]);
+                                echo '</li><li>';
                                 echo $this->Html->link($user . ' logout', ['controller' => 'Users', 'action' => 'logout']);
                         } else {
                                 echo $this->Html->link('Login', ['controller' => 'Users', 'action' => 'login']);

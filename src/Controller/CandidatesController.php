@@ -124,6 +124,19 @@ class CandidatesController extends AppController
                 }
                 return true;
             }
+                      if (in_array($this->request->action, ['edit'])) {
+        $candidateId = (int)$this->request->params['pass'][0];
+        if ($this->Candidates->isOwnedBy($candidateId, $user['id'])) {
+            return true;
+        } 
+    }
+        
+         if (in_array($this->request->action, ['view'])) {
+        $candidateId = (int)$this->request->params['pass'][0];
+        if ($this->Candidates->isOwnedBy($candidateId, $user['id'])) {
+            return true;
+        } 
+    }
         }
         
         if($user && $user['role'] === 'enterprise') {

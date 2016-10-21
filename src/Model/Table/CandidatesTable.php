@@ -82,4 +82,8 @@ class CandidatesTable extends Table
 
         return $rules;
     }
+     public function isOwnedBy($candidateId, $userId)
+{
+    return $this->exists(['id' => $candidateId, 'user_id' => $userId]);
+}
 }
