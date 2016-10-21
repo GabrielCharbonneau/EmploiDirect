@@ -17,7 +17,7 @@
             echo $this->Form->input('jobName');
             echo $this->Form->input('sector');
             echo $this->Form->input('job');
-            echo $this->Form->input('jobSituation', ['options' => ['plein'=>__('Full-Time'),'partiel' => __('Part-Time')]]);
+            echo $this->Form->input('jobSituation', ['options' => [''=>'','plein'=>__('Full-Time'),'partiel' => __('Part-Time')]]);
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>

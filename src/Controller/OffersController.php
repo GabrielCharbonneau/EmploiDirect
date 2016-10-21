@@ -144,36 +144,47 @@ class OffersController extends AppController {
 
     public function search($offer)
     {
-        if($offer['name'])
+        
+        $this->paginate = [
+            'contain' => ['Enterprises']
+        ];
+        if(isset($offer['name']))
         {
             $conditions[] = array('Offers.name Like' =>'%' . $offer['name'] . '%');
         }
-        if($offer['job'])
+        if(isset($offer['job']))
         {
             $conditions[] = array('Offers.job Like' =>'%'.$offer['job'].'%');
         }
-        if($offer['jobSituation'])
+        if(isset($offer['jobSituation']))
         {
             $conditions[] = array('Offers.jobSituation Like' =>'%'.$offer['jobSituation'].'%');
         }
-        if($offer['jobName'])
+        if(isset($offer['jobName']))
         {
             $conditions[] = array('Offers.jobName Like' =>'%'.$offer['jobName'].'%');
         }
-        if($offer['description'])
+        if(isset($offer['description']))
         {
             $conditions[] = array('Offers.description Like' =>'%'.$offer['description'].'%');
         }
-        if($offer['sector'])
+        if(isset($offer['sector']))
         {
             $conditions[] = array('Offers.sector Like' =>'%'.$offer['sector'].'%');
         }
-        return $this->paginate('Offers', array('conditions' => array('AND' => $conditions)));
+        
+        if(isset($conditions))
+        {
+            return $this->paginate('Offers', array('conditions' => array('AND' => $conditions)));
+        }
+        else 
+        {
+            return $this->paginate($this->Offers);
+        }
     }
     
     public function research()
     {
-        $offer = $this->Offers->newEntity();
         if ($this->request->is('post')) {
             $offers=$this->search($this->request->data);
             

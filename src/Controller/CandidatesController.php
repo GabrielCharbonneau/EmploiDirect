@@ -127,7 +127,7 @@ class CandidatesController extends AppController
         }
         
         if($user && $user['role'] === 'enterprise') {
-            if($action === 'view') {
+            if($action === 'view' || $action === 'research' || $action === 'search') {
                 return true;
             }
             if($action === 'add') {
@@ -146,5 +146,39 @@ class CandidatesController extends AppController
 
 
         return parent::isAuthorized($user);
+    }
+    
+    public function search($candidate)
+    {
+        if(isset($candidate['FirstName']))
+        {
+            $conditions[] = array('Candidates.FirstName Like' =>'%' . $candidate['FirstName'] . '%');
+        }
+        if(isset($candidate['LastName']))
+        {
+            $conditions[] = array('Candidates.LastName Like' =>'%'.$candidate['LastName'].'%');
+        }
+        if(isset($candidate['Address']))
+        {
+            $conditions[] = array('Candidates.Address Like' =>'%'.$candidate['Address'].'%');
+        }
+        if(isset($conditions))
+        {
+            return $this->paginate('Candidates', array('conditions' => array('AND' => $conditions)));
+        }
+        else 
+        {
+            return $this->paginate($this->Candidates);
+        }
+    }
+    
+    public function research()
+    {
+        if ($this->request->is('post')) {
+            $candidates=$this->search($this->request->data);
+            
+            $this->set(compact('candidates'));
+            $this->set('_serialize', ['candidates']);
+        }
     }
 }
