@@ -21,8 +21,9 @@ class OffersController extends AppController {
         $this->paginate = [
             'contain' => ['Enterprises']
         ];
+        
         $offers = $this->paginate($this->Offers);
-
+        
         $this->set(compact('offers'));
         $this->set('_serialize', ['offers']);
     }
@@ -120,7 +121,7 @@ class OffersController extends AppController {
     }
 
     public function isAuthorized($user) {
-        if ($user && $user['role'] === 'enterprise' && $this->request->action === 'add') {
+        if ($user && $user['role'] === 'enterprise' && ($this->request->action === 'add' || $this->request->action === 'research' || $this->request->action === 'search')) {
             return true;
         }
         
@@ -142,4 +143,54 @@ class OffersController extends AppController {
         return parent::isAuthorized($user);
     }
 
+    public function search($offer)
+    {
+        
+        $this->paginate = [
+            'contain' => ['Enterprises']
+        ];
+        if(isset($offer['name']))
+        {
+            $conditions[] = array('Offers.name Like' =>'%' . $offer['name'] . '%');
+        }
+        if(isset($offer['job']))
+        {
+            $conditions[] = array('Offers.job Like' =>'%'.$offer['job'].'%');
+        }
+        if(isset($offer['jobSituation']))
+        {
+            $conditions[] = array('Offers.jobSituation Like' =>'%'.$offer['jobSituation'].'%');
+        }
+        if(isset($offer['jobName']))
+        {
+            $conditions[] = array('Offers.jobName Like' =>'%'.$offer['jobName'].'%');
+        }
+        if(isset($offer['description']))
+        {
+            $conditions[] = array('Offers.description Like' =>'%'.$offer['description'].'%');
+        }
+        if(isset($offer['sector']))
+        {
+            $conditions[] = array('Offers.sector Like' =>'%'.$offer['sector'].'%');
+        }
+        
+        if(isset($conditions))
+        {
+            return $this->paginate('Offers', array('conditions' => array('AND' => $conditions)));
+        }
+        else 
+        {
+            return $this->paginate($this->Offers);
+        }
+    }
+    
+    public function research()
+    {
+        if ($this->request->is('post')) {
+            $offers=$this->search($this->request->data);
+            
+            $this->set(compact('offers'));
+            $this->set('_serialize', ['offers']);
+        }
+    }
 }

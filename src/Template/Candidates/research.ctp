@@ -1,17 +1,26 @@
 <nav class="large-3 medium-4 columns" id="actions-sidebar">
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('New Candidate'), ['action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Offers'), ['controller' => 'Offers', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('List Offers'), ['action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('List Enterprises'), ['controller' => 'Enterprises', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Enterprise'), ['controller' => 'Enterprises', 'action' => 'add']) ?></li>
         <li><?= $this->Html->link(__('List Candidates'), ['controller' => 'Candidates', 'action' => 'index']) ?></li>
     </ul>
 </nav>
-<div style="text-align: right; padding-right: 200px; padding-top: 20px;">
-<span style="background-color: #bbf0ff">
-<?= $this->Html->link(__('Research a candidate'), ['action' => 'research']) ?>
-</span>
+<div class="candidates form large-9 medium-8 columns content">
+    <fieldset>
+        <?= $this->Form->create('Search', ['url' => ['action' => 'research']]) ?>
+        <legend><?= __('Search Candidate') ?></legend>
+        <?php
+            echo $this->Form->input('FirstName');
+            echo $this->Form->input('LastName');
+            echo $this->Form->input('Address');
+        ?>
+    </fieldset>
+    <?= $this->Form->button(__('Submit')) ?>
+    <?= $this->Form->end() ?>
 </div>
+<?php if(isset($candidates)): ?>
 <div class="candidates index large-9 medium-8 columns content">
     <h3><?= __('Candidates') ?></h3>
     <table cellpadding="0" cellspacing="0">
@@ -45,3 +54,4 @@
         <p><?= $this->Paginator->counter() ?></p>
     </div>
 </div>
+<? endif; ?>
