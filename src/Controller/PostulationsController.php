@@ -50,8 +50,17 @@ class PostulationsController extends AppController {
             $this->loadModel('Files');
             if(!empty($this->request->data['file']['name'])){
                 $fileName = $this->request->data['file']['name'];
-                $uploadPath = 'uploads/files/';
-                $uploadFile = 'img/' .$uploadPath.$fileName;
+                
+                // Chemin Pour Le Serveur
+                $uploadPath = 'c:\\home\\site\\wwwroot\\webroot\\img\\uploads\\files\\';
+                $uploadFile = $uploadPath.$fileName;
+                
+                
+                /*
+                 * // LOCAL SEULEMENT
+                 * $uploadPath = 'uploads/files/';
+                 * $uploadFile = 'img/' .$uploadPath.$fileName;
+                 */
                 if(move_uploaded_file($this->request->data['file']['tmp_name'],$uploadFile)){
                     $uploadData = $this->Files->newEntity();
                     $uploadData->name = $fileName;
@@ -64,7 +73,7 @@ class PostulationsController extends AppController {
                         $this->Flash->error(__('Unable to upload file, please try again.'));
                     }
                 }else{
-                    $this->Flash->error(__('Unable to upload file, please try again.'));
+                    $this->Flash->error(__('Unable to upload file to server, please try again.'));
                 }
             }else{
                 $this->Flash->error(__('Please choose a file to upload.'));
