@@ -24,9 +24,15 @@
             <th scope="row"><?= __('Id') ?></th>
             <td><?= $this->Number->format($user->id) ?></td>
         </tr>
-        <tr>
             <th scope="row"><?= __('Role') ?></th>
             <td><?= $user->role ?></td>
         </tr>
     </table>
+    <?= $this->Form->create($user) ?>
+    <fieldset>
+        <legend><?= __('Deactivate User') ?></legend>
+        <?= $this->Form->input('Reason', ['type' => 'textarea', 'label' => 'Reason of the deactivation : ']); ?>
+    </fieldset>
+    <?= $this->Form->button(__('Deactivate')) ?>
+    <?= $this->Form->end() ?>
 </div>

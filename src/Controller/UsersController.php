@@ -117,6 +117,27 @@ class UsersController extends AppController {
 
         return $this->redirect(['action' => 'index']);
     }
+    
+    public function deactivate($id = null) {
+        $user = $this->Users->get($id);
+        
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $user['active'] = 0;
+            $this->Users->save($user);
+            Debug($this->request->data);die;
+            /*
+            $email = new Email();
+            $email->to($user['email']);
+            $email->from(['noreply@emploidirect.ca' => 'Emploi Direct']);
+            $email->subject('Your account has been disabled');
+            $email->send('Your account has been disabled for the following reason : ' . $this->request->data['reason']);
+            */
+            return $this->redirect(['action' => 'index']);
+        }
+        
+        $this->set('user', $user);
+
+    }
 
     public function beforeFilter(Event $event) {
         parent::beforeFilter($event);
@@ -130,15 +151,30 @@ class UsersController extends AppController {
         if ($this->request->is('post')) {
             $user = $this->Auth->identify();
             if ($user) {
-                $this->Auth->setUser($user);
-                return $this->redirect($this->Auth->redirectUrl());
+                
+                if($user['active']) {
+                    $this->Auth->setUser($user);
+                    return $this->redirect($this->Auth->redirectUrl());
+                } else {
+                    $this->Flash->error(__('Your account has been disabled. Please check your email for more informations.'));
+                }
+            } else {
+                $this->Flash->error(__('Invalid email or password, try again'));
             }
-            $this->Flash->error(__('Invalid email or password, try again'));
         }
     }
 
     public function logout() {
         return $this->redirect($this->Auth->logout());
+    }
+    
+    public function isAuthorized($user) {
+        // Admin can access everything
+        if(isset($user['role']) && $user['role'] == 'admin') {
+            return true;
+        }
+        
+        parent::isAuthorized($user);
     }
 
 }

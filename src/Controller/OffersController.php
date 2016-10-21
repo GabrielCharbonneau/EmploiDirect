@@ -124,10 +124,6 @@ class OffersController extends AppController {
             return true;
         }
         
-        if(!$user['active']) {
-            return false;
-        }
-        
         $this->loadModel('Enterprises');
         $ent = $this->Enterprises->find('all', ["conditions" => ['user_id' => $user['id']]])->first();
 	$id = $this->request->params['pass'][0];
