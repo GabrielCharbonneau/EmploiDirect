@@ -1,17 +1,29 @@
 <nav class="large-3 medium-4 columns" id="actions-sidebar">
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('New Offer'), ['action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Offers'), ['controller' => 'Offers', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('List Offers'), ['action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('List Enterprises'), ['controller' => 'Enterprises', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Enterprise'), ['controller' => 'Enterprises', 'action' => 'add']) ?></li>
         <li><?= $this->Html->link(__('List Candidates'), ['controller' => 'Candidates', 'action' => 'index']) ?></li>
     </ul>
 </nav>
-<div style="text-align: right; padding-right: 200px; padding-top: 20px;">
-<span style="background-color: #bbf0ff">
-<?= $this->Html->link(__('Research an offer'), ['action' => 'research']) ?>
-</span>
+<div class="offers form large-9 medium-8 columns content">
+    <fieldset>
+        <?= $this->Form->create('Search', ['url' => ['action' => 'research']]) ?>
+        <legend><?= __('Search Offer') ?></legend>
+        <?php
+            echo $this->Form->input('name');
+            echo $this->Form->input('description');
+            echo $this->Form->input('jobName');
+            echo $this->Form->input('sector');
+            echo $this->Form->input('job');
+            echo $this->Form->input('jobSituation', ['options' => ['plein'=>__('Full-Time'),'partiel' => __('Part-Time')]]);
+        ?>
+    </fieldset>
+    <?= $this->Form->button(__('Submit')) ?>
+    <?= $this->Form->end() ?>
 </div>
+<?php if(isset($offers)): ?>
 <div class="offers index large-9 medium-8 columns content">
     <h3><?= __('Offers') ?></h3>
     <table cellpadding="0" cellspacing="0">
@@ -32,6 +44,7 @@
         <tbody>
             <?php foreach ($offers as $offer): if($offer->publicationBeginningDate <= date('m/d/y') && $offer->publicationEndDate >= date('m/d/y')) : ?>
             <tr>
+               
                 <td><?= h($offer->name) ?></td>
                 <td><?= h($offer->jobName) ?></td>
                 <td><?= h($offer->scholarity) ?></td>
@@ -57,3 +70,4 @@
         <p><?= $this->Paginator->counter() ?></p>
     </div>
 </div>
+<? endif; ?>
