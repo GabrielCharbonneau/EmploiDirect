@@ -116,20 +116,28 @@ class OffersController extends AppController {
 
     public function beforeFilter(Event $event) {
         $this->Auth->allow(['index', 'view']);
+        
     }
 
     public function isAuthorized($user) {
         if ($user && $user['role'] === 'enterprise' && $this->request->action === 'add') {
             return true;
         }
+        $this->loadModel('Enterprises');
+        $ent = $this->Enterprises->find('all', ["conditions" => ['user_id' => $user['id']]])->first();
+	$id = $this->request->params['pass'][0];
+	$offer = $this->Offers->get($id);
+        if ($user && $user['role'] === 'enterprise' && $ent['id'] === $offer->enterprise_id) {
+            return true;
+        }
         
         if($user && $user['role'] === 'candidate') {
-            
+            return false;
         }
         if($user && $this->request->action === 'view') {
             return true;
         }
-
+        
         return parent::isAuthorized($user);
     }
 
