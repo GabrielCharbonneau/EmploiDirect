@@ -55,6 +55,7 @@ $cakeDescription = 'EmploiDirect';
                                 if($loguser['role'] === 'enterprise') {
                                     echo '<li>' . $this->Html->Link('My account',['controller' => 'Enterprises', 'action' => 'view', $enterpriseId]);
                                 } else {
+								 echo '<li>' . $this->Html->Link('View my postulations',['controller' => 'Postulations', 'action' => 'historique', $logged_in_candidateProfile_id]);
                                     echo '<li>' . $this->Html->Link('My account',['controller' => 'Candidates', 'action' => 'view', $logged_in_candidateProfile_id]);
                                 }
                                 echo '</li><li>';

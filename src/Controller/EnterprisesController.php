@@ -129,7 +129,7 @@ class EnterprisesController extends AppController {
                         return true;
                     }
                 } else {
-                    return $this->redirect(['action' => 'add']);
+                    $this->redirect(['controller' => 'Enterprises', 'action' => 'add']);
                 }
             }
         }

@@ -23,6 +23,18 @@ class PostulationsController extends AppController {
         $this->set('_serialize', ['postulations']);
     }
 
+    public function historique($id) {
+        $postulations = $this->paginate($this->Postulations);
+
+        $this->loadModel('Candidates');
+        $candidateProfile = $this->Candidates->find('all', ['conditions' => ['user_id' => $this->Auth->User('id')]])->first();
+        if ($candidateProfile) {
+            $this->set('postulations2', $this->Postulations->find('all', ['conditions' => ['idCandidate' => $candidateProfile['id']]]));
+        }
+        $this->set(compact('postulations'));
+        $this->set('_serialize', ['postulations']);
+    }
+
     /**
      * View method
      *
@@ -34,7 +46,7 @@ class PostulationsController extends AppController {
         $postulation = $this->Postulations->get($id, [
             'contain' => ['Files']
         ]);
-        
+
         $this->set('postulation', $postulation);
         $this->set('_serialize', ['postulation']);
     }
@@ -48,20 +60,17 @@ class PostulationsController extends AppController {
         $postulation = $this->Postulations->newEntity();
         if ($this->request->is('post')) {
             $this->loadModel('Files');
-            if(!empty($this->request->data['file']['name'])){
+            if (!empty($this->request->data['file']['name'])) {
                 $fileName = $this->request->data['file']['name'];
-                
+
                 // Chemin Pour Le Serveur
-                $uploadPath = 'c:\\home\\site\\wwwroot\\webroot\\img\\uploads\\files\\';
-                $uploadFile = $uploadPath.$fileName;
-                
-                
-                /*
-                 * // LOCAL SEULEMENT
-                 * $uploadPath = 'uploads/files/';
-                 * $uploadFile = 'img/' .$uploadPath.$fileName;
-                 */
-                if(move_uploaded_file($this->request->data['file']['tmp_name'],$uploadFile)){
+                //$uploadPath = 'c:\\home\\site\\wwwroot\\webroot\\img\\uploads\\files\\';
+                //$uploadFile = $uploadPath.$fileName;
+                // LOCAL SEULEMENT
+                $uploadPath = 'uploads/files/';
+                $uploadFile = 'img/' . $uploadPath . $fileName;
+
+                if (move_uploaded_file($this->request->data['file']['tmp_name'], $uploadFile)) {
                     $uploadData = $this->Files->newEntity();
                     $uploadData->name = $fileName;
                     $uploadData->path = $uploadPath;
@@ -69,22 +78,23 @@ class PostulationsController extends AppController {
                     $uploadData->modified = date("Y-m-d H:i:s");
                     if ($this->Files->save($uploadData)) {
                         $this->Flash->success(__('File has been uploaded and inserted successfully.'));
-                    }else{
+                    } else {
                         $this->Flash->error(__('Unable to upload file, please try again.'));
                     }
-                }else{
+                } else {
                     $this->Flash->error(__('Unable to upload file to server, please try again.'));
                 }
-            }else{
+            } else {
                 $this->Flash->error(__('Please choose a file to upload.'));
             }
-            
-            
-            
+
+
+
             $postulation = $this->Postulations->patchEntity($postulation, $this->request->data);
             $this->loadModel('Candidates');
             $candidate = $this->Candidates->find('all', ['conditions' => ['user_id' => $this->Auth->User('id')]])->first();
-            $postulation->idCandidate = $candidate['id'];;
+            $postulation->idCandidate = $candidate['id'];
+            ;
             $postulation->idOffer = $id;
             $postulation->DatePostulation = Date('Y-m-d');
             if ($this->Postulations->save($postulation)) {
@@ -156,13 +166,13 @@ class PostulationsController extends AppController {
 
                 $enterprise = $this->Enterprises->find('all', ['conditions' => ['user_id' => $this->Auth->User('id')]])->first();
                 $offers = $this->Offers->find('all', ['conditions' => ['enterprise_id' => $enterprise['id']]])->toArray();
-                
-                $id = (int)$this->request->params['pass'][0];
-                
+
+                $id = (int) $this->request->params['pass'][0];
+
                 $postulation = $this->Postulations->find('all', ['conditions' => ['id' => $id]])->first();
-                
-                foreach($offers as $offer) {
-                    if($postulation['idOffer'] === $offer['id']) {
+
+                foreach ($offers as $offer) {
+                    if ($postulation['idOffer'] === $offer['id']) {
                         return true;
                     }
                 }
@@ -174,11 +184,19 @@ class PostulationsController extends AppController {
             if ($action === 'add') {
                 $this->loadModel('Candidates');
                 $candidateProfile = $this->Candidates->find('all', ['conditions' => ['user_id' => $this->Auth->user('id')]])->first();
-                if(!$candidateProfile) {
+                if (!$candidateProfile) {
                     $this->Flash->error(__('You need to complete your profile first.'));
                     return $this->redirect(['controller' => 'Candidates', 'action' => 'add']);
                 }
                 return true;
+            }
+            if ($action === 'historique') {
+                $this->loadModel('Candidates');
+                $candidateProfile = $this->Candidates->find('all', ['conditions' => ['user_id' => $this->Auth->User('id')]])->first();
+                if ($candidateProfile) {
+                    $this->set('postulations2', $this->Postulations->find('all', ['conditions' => ['idCandidate' => $candidateProfile['id']]]));
+                    return true;
+                }
             }
         }
 
