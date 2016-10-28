@@ -70,4 +70,4 @@
         <p><?= $this->Paginator->counter() ?></p>
     </div>
 </div>
-<? endif; ?>
+<?php endif; ?>
