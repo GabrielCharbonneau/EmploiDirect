@@ -126,14 +126,6 @@ class UsersController extends AppController {
         if ($this->request->is(['patch', 'post', 'put'])) {
             $user['active'] = 0;
             $this->Users->save($user);
-            Debug($this->request->data);die;
-            /*
-            $email = new Email();
-            $email->to($user['email']);
-            $email->from(['noreply@emploidirect.ca' => 'Emploi Direct']);
-            $email->subject('Your account has been disabled');
-            $email->send('Your account has been disabled for the following reason : ' . $this->request->data['reason']);
-            */
             return $this->redirect(['action' => 'index']);
         }
         

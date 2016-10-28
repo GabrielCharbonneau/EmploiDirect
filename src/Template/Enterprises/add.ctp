@@ -9,7 +9,7 @@
 <div class="enterprises form large-9 medium-8 columns content">
     <?= $this->Form->create($enterprise) ?>
     <fieldset>
-        <legend><?= __('Add Enterprise') ?></legend>
+        <legend><?= __('Complete Your Enterprise Profile') ?></legend>
         <?php
             echo $this->Form->input('name');
             echo $this->Form->input('description');

@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Controller;
 
 use App\Controller\AppController;
@@ -8,18 +9,16 @@ use App\Controller\AppController;
  *
  * @property \App\Model\Table\CandidatesTable $Candidates
  */
-class CandidatesController extends AppController
-{
+class CandidatesController extends AppController {
 
     /**
      * Index method
      *
      * @return \Cake\Network\Response|null
      */
-    public function index()
-    {
+    public function index() {
         $candidates = $this->paginate($this->Candidates);
-        
+
         $this->set(compact('candidates'));
         $this->set('_serialize', ['candidates']);
     }
@@ -31,8 +30,7 @@ class CandidatesController extends AppController
      * @return \Cake\Network\Response|null
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function view($id = null)
-    {
+    public function view($id = null) {
         $candidate = $this->Candidates->get($id, [
             'contain' => []
         ]);
@@ -46,8 +44,7 @@ class CandidatesController extends AppController
      *
      * @return \Cake\Network\Response|void Redirects on successful add, renders view otherwise.
      */
-    public function add()
-    {
+    public function add() {
         $candidate = $this->Candidates->newEntity();
         if ($this->request->is('post')) {
             $candidate = $this->Candidates->patchEntity($candidate, $this->request->data);
@@ -72,8 +69,7 @@ class CandidatesController extends AppController
      * @return \Cake\Network\Response|void Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Network\Exception\NotFoundException When record not found.
      */
-    public function edit($id = null)
-    {
+    public function edit($id = null) {
         $candidate = $this->Candidates->get($id, [
             'contain' => []
         ]);
@@ -98,8 +94,7 @@ class CandidatesController extends AppController
      * @return \Cake\Network\Response|null Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function delete($id = null)
-    {
+    public function delete($id = null) {
         $this->request->allowMethod(['post', 'delete']);
         $candidate = $this->Candidates->get($id);
         if ($this->Candidates->delete($candidate)) {
@@ -110,48 +105,48 @@ class CandidatesController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
-    
-    public function isAuthorized($user) {        
+
+    public function isAuthorized($user) {
         $action = $this->request->action;
-        
+
         if ($user && $user['role'] === 'candidate') {
-            if($action === 'add') {
+            if ($action === 'add') {
                 $this->loadModel('Candidates');
                 $candidate = $this->Candidates->find('all', ['conditions' => ['user_id' => $user['id']]])->first();
-                if($candidate) {
+                if ($candidate) {
                     $this->Flash->error(__('You already have a profile'));
                     return false;
                 }
                 return true;
             }
-                      if (in_array($this->request->action, ['edit'])) {
-        $candidateId = (int)$this->request->params['pass'][0];
-        if ($this->Candidates->isOwnedBy($candidateId, $user['id'])) {
-            return true;
-        } 
-    }
-        
-         if (in_array($this->request->action, ['view'])) {
-        $candidateId = (int)$this->request->params['pass'][0];
-        if ($this->Candidates->isOwnedBy($candidateId, $user['id'])) {
-            return true;
-        } 
-    }
+            if (in_array($this->request->action, ['edit'])) {
+                $candidateId = (int) $this->request->params['pass'][0];
+                if ($this->Candidates->isOwnedBy($candidateId, $user['id'])) {
+                    return true;
+                }
+            }
+
+            if (in_array($this->request->action, ['view'])) {
+                $candidateId = (int) $this->request->params['pass'][0];
+                if ($this->Candidates->isOwnedBy($candidateId, $user['id'])) {
+                    return true;
+                }
+            }
         }
-        
-        if($user && $user['role'] === 'enterprise') {
-            if($action === 'view' || $action === 'research' || $action === 'search') {
+
+        if ($user && $user['role'] === 'enterprise') {
+            if ($action === 'view' || $action === 'research' || $action === 'search') {
                 return true;
             }
-            if($action === 'add') {
+            if ($action === 'add') {
                 $this->Flash->error(__('You can\'t create a candidate profile on an enterprise account.'));
                 return false;
             }
-            if($action === 'edit') {
+            if ($action === 'edit') {
                 $this->Flash->error(__('You can\'t edit a candidate profile on an enterprise account.'));
                 return false;
             }
-            if($action === 'index') {
+            if ($action === 'index') {
                 return true;
             }
         }
@@ -160,38 +155,31 @@ class CandidatesController extends AppController
 
         return parent::isAuthorized($user);
     }
-    
-    public function search($candidate)
-    {
-        if(isset($candidate['FirstName']))
-        {
-            $conditions[] = array('Candidates.FirstName Like' =>'%' . $candidate['FirstName'] . '%');
+
+    public function search($candidate) {
+        if (isset($candidate['FirstName'])) {
+            $conditions[] = array('Candidates.FirstName Like' => '%' . $candidate['FirstName'] . '%');
         }
-        if(isset($candidate['LastName']))
-        {
-            $conditions[] = array('Candidates.LastName Like' =>'%'.$candidate['LastName'].'%');
+        if (isset($candidate['LastName'])) {
+            $conditions[] = array('Candidates.LastName Like' => '%' . $candidate['LastName'] . '%');
         }
-        if(isset($candidate['Address']))
-        {
-            $conditions[] = array('Candidates.Address Like' =>'%'.$candidate['Address'].'%');
+        if (isset($candidate['Address'])) {
+            $conditions[] = array('Candidates.Address Like' => '%' . $candidate['Address'] . '%');
         }
-        if(isset($conditions))
-        {
+        if (isset($conditions)) {
             return $this->paginate('Candidates', array('conditions' => array('AND' => $conditions)));
-        }
-        else 
-        {
+        } else {
             return $this->paginate($this->Candidates);
         }
     }
-    
-    public function research()
-    {
+
+    public function research() {
         if ($this->request->is('post')) {
-            $candidates=$this->search($this->request->data);
-            
+            $candidates = $this->search($this->request->data);
+
             $this->set(compact('candidates'));
             $this->set('_serialize', ['candidates']);
         }
     }
+
 }
