@@ -74,10 +74,19 @@ class AppController extends Controller
         ) {
             $this->set('_serialize', true);
         }
-        $this->loadModel('Candidates');
-        $candidateProfiles = $this->Candidates->find('all', ['conditions' => ['user_id' => $this->Auth->User('id')]])->first();
+        $user = $this->Auth->User();
+        if($user['role'] === 'candidate' || $user['role'] === 'admin') {
+            $this->loadModel('Candidates');
+            $candidateProfiles = $this->Candidates->find('all', ['conditions' => ['user_id' => $this->Auth->User('id')]])->first();
 
-        $this->set('logged_in_candidateProfile_id', isset($candidateProfiles['id']) ? $candidateProfiles['id'] : -1);
+            $this->set('logged_in_candidateProfile_id', isset($candidateProfiles['id']) ? $candidateProfiles['id'] : -1);
+            
+        } else if($user['role'] === 'enterprise') {
+            $this->loadModel('Enterprises');
+            $enterpriseId = $this->Enterprises->find('all', ['conditions' => ['user_id' => $user['id']]])->first();
+
+            $this->set('enterpriseId', isset($enterpriseId['id']) ? $enterpriseId['id'] : -1);
+        }
     }
     
     public function isAuthorized($user) {

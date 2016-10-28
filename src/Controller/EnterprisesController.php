@@ -113,14 +113,24 @@ class EnterprisesController extends AppController {
         $action = $this->request->action;
         
         if ($user && $user['role'] === 'enterprise') {
+            $this->loadModel('Enterprises');
+            $enterprise = $this->Enterprises->find('all', ['conditions' => ['user_id' => $user['id']]])->first();
             if($action === 'add') {
-                $this->loadModel('Enterprises');
-                $enterprise = $this->Enterprises->find('all', ['conditions' => ['user_id' => $user['id']]])->first();
                 if($enterprise) {
                     $this->Flash->error(__('You already have a profile'));
                     return false;
+                } else {
+                    return true;
                 }
-                return true;
+            } else if($action === 'view') {
+                if($enterprise) {
+                    $enterpriseId = (int)$this->request->params['pass'][0];
+                    if($enterprise['id'] === $enterpriseId) {
+                        return true;
+                    }
+                } else {
+                    return $this->redirect(['action' => 'add']);
+                }
             }
         }
         if($user && $user['role'] === 'candidate') {

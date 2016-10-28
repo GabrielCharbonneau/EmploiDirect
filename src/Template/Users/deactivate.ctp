@@ -29,10 +29,6 @@
         </tr>
     </table>
     <?= $this->Form->create($user) ?>
-    <fieldset>
-        <legend><?= __('Deactivate User') ?></legend>
-        <?= $this->Form->input('Reason', ['type' => 'textarea', 'label' => 'Reason of the deactivation : ']); ?>
-    </fieldset>
     <?= $this->Form->button(__('Deactivate')) ?>
     <?= $this->Form->end() ?>
 </div>

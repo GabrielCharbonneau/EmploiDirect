@@ -20,6 +20,18 @@
             <th scope="row"><?= __('Description') ?></th>
             <td><?= h($enterprise->description) ?></td>
         </tr>
+        <tr>
+            <th scope="row"><?= __('Histoire') ?></th>
+            <td><?= h($enterprise->histoire) ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('Domaine d\'affaire') ?></th>
+            <td><?= h($enterprise->domaine_affaire) ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('Culture') ?></th>
+            <td><?= h($enterprise->culture) ?></td>
+        </tr>
     </table>
     <div class="related">
         <h4><?= __('Related Offers') ?></h4>

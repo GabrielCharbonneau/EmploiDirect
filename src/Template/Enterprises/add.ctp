@@ -13,6 +13,9 @@
         <?php
             echo $this->Form->input('name');
             echo $this->Form->input('description');
+            echo $this->Form->input('histoire', ['type' => 'textarea']);
+            echo $this->Form->input('domaine_affaire');
+            echo $this->Form->input('culture', ['type' => 'textarea']);
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>

@@ -52,7 +52,11 @@ $cakeDescription = 'EmploiDirect';
                        
                          if ($loguser) {
                                 $user = $loguser['email'];
-                                echo '<li>' . $this->Html->Link('My account',['controller' => 'Candidates', 'action' => 'view', $logged_in_candidateProfile_id]);
+                                if($loguser['role'] === 'enterprise') {
+                                    echo '<li>' . $this->Html->Link('My account',['controller' => 'Enterprises', 'action' => 'view', $enterpriseId]);
+                                } else {
+                                    echo '<li>' . $this->Html->Link('My account',['controller' => 'Candidates', 'action' => 'view', $logged_in_candidateProfile_id]);
+                                }
                                 echo '</li><li>';
                                 echo $this->Html->link($user . ' logout', ['controller' => 'Users', 'action' => 'logout']);
                         } else {
