@@ -25,8 +25,6 @@ class FilesTableTest extends TestCase
      */
     public $fixtures = [
         'app.files',
-        'app.cv',
-        'app.cv_files'
     ];
 
     /**
