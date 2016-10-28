@@ -2,9 +2,7 @@
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
         <li><?= $this->Html->link(__('Edit Enterprise'), ['action' => 'edit', $enterprise->id]) ?> </li>
-        <li><?= $this->Form->postLink(__('Delete Enterprise'), ['action' => 'delete', $enterprise->id], ['confirm' => __('Are you sure you want to delete # {0}?', $enterprise->id)]) ?> </li>
         <li><?= $this->Html->link(__('List Enterprises'), ['action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Enterprise'), ['action' => 'add']) ?> </li>
         <li><?= $this->Html->link(__('List Offers'), ['controller' => 'Offers', 'action' => 'index']) ?> </li>
         <li><?= $this->Html->link(__('New Offer'), ['controller' => 'Offers', 'action' => 'add']) ?> </li>
     </ul>
@@ -31,6 +29,10 @@
         <tr>
             <th scope="row"><?= __('Culture') ?></th>
             <td><?= h($enterprise->culture) ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('Action') ?></th>
+            <td><?= $this->Html->link(__('Edit Enterprise'), ['action' => 'edit', $enterprise->id]) ?></td>
         </tr>
     </table>
     <div class="related">

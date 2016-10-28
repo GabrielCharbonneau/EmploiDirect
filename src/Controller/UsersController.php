@@ -54,13 +54,9 @@ class UsersController extends AppController {
             if ($this->Users->save($user)) {
                 $this->Flash->success(__('Your account has been created.'));
                 $this->Auth->setUser($user);
-                /*
-                $email = new Email();
-                $email->to($user['email']);
-                $email->from(['noreply@emploidirect.ca' => 'Emploi Direct']);
-                $email->subject('Your account has been created');
-                $email->send('Your account has successfully been created. You can now fully use www.emploidirect.ca as an enterprise.');
-                */
+                
+                $this->sendConfirmationEmail('an enterprise');
+                
                 return $this->redirect(['controller' => 'Enterprises', 'action' => 'add']);
             } else {
                 $this->Flash->error(__('Your account could not be created. Please, try again.'));
@@ -83,13 +79,9 @@ class UsersController extends AppController {
             if ($this->Users->save($user)) {
                 $this->Flash->success(__('Your account has been created.'));
                 $this->Auth->setUser($user);
-                /*
-                $email = new Email();
-                $email->to($user['email']);
-                $email->from(['noreply@emploidirect.ca' => 'Emploi Direct']);
-                $email->subject('Your account has been created');
-                $email->send('Your account has successfully been created. You can now fully use www.emploidirect.ca as a candidate.');
-                */
+                
+                $this->sendConfirmationEmail('a candidate');
+                
                 return $this->redirect(['controller' => 'Candidates', 'action' => 'add']);
             } else {
                 $this->Flash->error(__('Your account could not be created. Please, try again.'));
@@ -97,6 +89,16 @@ class UsersController extends AppController {
         }
         $this->set(compact('user'));
         $this->set('_serialize', ['user']);
+    }
+    
+    public function sendConfirmationEmail($role) {
+        /*
+        $email = new Email();
+        $email->to($user['email']);
+        $email->from(['noreply@emploidirect.ca' => 'Emploi Direct']);
+        $email->subject('Your account has been created');
+        $email->send('Your account has successfully been created. You can now fully use www.emploidirect.ca as ' . $role . '.');
+        */
     }
 
     /**
