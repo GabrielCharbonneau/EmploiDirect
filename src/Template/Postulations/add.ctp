@@ -16,9 +16,44 @@
             echo $this->Form->hidden('idOffer', ['default' => '1']);
             echo $this->Form->hidden('DatePostulation', ['default' => 'now']);
             echo $this->Form->input('file', ['type' => 'file', 'class' => 'form-control']);
-            echo $this->Form->input('PresentationLetter');
+        ?>
+        <b><?=__('Presentation letter model') ?></b>
+        <select id="dropdown">
+                <option value=""><?=__('No model')?></option>
+                <option value="model1"><?=__('Model 1')?></option>
+                <option value="model2"><?=__('Model 2')?></option>
+            </select>
+        <?php
+            echo $this->Form->input('PresentationLetter', ['type' => 'textarea']);
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>
     <?= $this->Form->end() ?>
 </div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script type="text/javascript">
+    var mydropdown = document.getElementById('dropdown');
+    
+    mydropdown.onchange = function(){
+        if(mydropdown.value === "model1"){
+            $.ajax({
+                url : "/EmploiDirect/LettrePresentation01DiplomeDeCollege.txt",
+                dataType: "text",
+                success : function (data) {
+                    $("#presentationletter").text(data);
+                }
+            });
+        } else if(mydropdown.value === "model2"){
+            $.ajax({
+                url : "/EmploiDirect/LettrePresentation02ExperienceProfessionnelle.txt",
+                dataType: "text",
+                success : function (data) {
+                    $("#presentationletter").text(data);
+                }
+            });
+        } else {
+            $("#presentationletter").text('');
+        }
+    }
+</script>
