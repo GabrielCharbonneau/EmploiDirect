@@ -87,7 +87,7 @@ class EnterprisesController extends AppController {
     }
 
     /**
-     * Delete method
+     * Delete methods
      *
      * @param string|null $id Enterprise id.
      * @return \Cake\Network\Response|null Redirects to index.
