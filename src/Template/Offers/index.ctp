@@ -30,8 +30,8 @@
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($offers as $offer): if($offer->publicationBeginningDate <= date('m/d/y') && $offer->publicationEndDate >= date('m/d/y')) : ?>
-            <?php if($offer['active']) : ?>
+            
+            <?php foreach ($offers as $offer): if(strtotime($offer->publicationBeginningDate) <= time() && strtotime($offer->publicationEndDate) >= time()) : if($offer['active']) : ?>
             <tr>
                 <td><?= h($offer->name) ?></td>
                 <td><?= h($offer->jobName) ?></td>
