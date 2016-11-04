@@ -38,7 +38,7 @@
     mydropdown.onchange = function(){
         if(mydropdown.value === "model1"){
             $.ajax({
-                url : "/EmploiDirect/LettrePresentation01DiplomeDeCollege.txt",
+                url : "/img/uploads/files/LettrePresentation01DiplomeDeCollege.txt",
                 dataType: "text",
                 success : function (data) {
                     $("#presentationletter").text(data);
@@ -46,7 +46,7 @@
             });
         } else if(mydropdown.value === "model2"){
             $.ajax({
-                url : "/EmploiDirect/LettrePresentation02ExperienceProfessionnelle.txt",
+                url : "/img/uploads/files/LettrePresentation02ExperienceProfessionnelle.txt",
                 dataType: "text",
                 success : function (data) {
                     $("#presentationletter").text(data);

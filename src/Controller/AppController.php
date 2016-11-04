@@ -77,7 +77,7 @@ class AppController extends Controller
         $user = $this->Auth->User();
         if($user['role'] === 'candidate' || $user['role'] === 'admin') {
             $this->loadModel('Candidates');
-            $candidateProfiles = $this->Candidates->find('all', ['conditions' => ['user_id' => $this->Auth->User('id')]])->first();
+            $candidateProfiles = $this->Candidates->find('all', ['conditions' => ['user_id' => $user['id']]])->first();
 
             $this->set('logged_in_candidateProfile_id', isset($candidateProfiles['id']) ? $candidateProfiles['id'] : -1);
             
