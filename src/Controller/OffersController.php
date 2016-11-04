@@ -121,8 +121,12 @@ class OffersController extends AppController {
     }
 
     public function isAuthorized($user) {
-        if ($user && ($user['role'] === 'admin' || ($user['role'] === 'enterprise' && ($this->request->action === 'add' || $this->request->action === 'research' || $this->request->action === 'search') || $user['role'] === 'candidate' && ($this->request->action === 'research' || $this->request->action === 'search')))) {
+        if ($user && ($user['role'] === 'admin' || ($user['role'] === 'enterprise' && ($this->request->action === 'add' || $this->request->action === 'research' || $this->request->action === 'search') || ($user['role'] === 'candidate' && ($this->request->action === 'research' || $this->request->action === 'search'))))) {
             return true;
+        }
+        
+        if($user && $user['role'] === 'candidate') {
+            return false;
         }
         
         $this->loadModel('Enterprises');
@@ -133,9 +137,6 @@ class OffersController extends AppController {
             return true;
         }
         
-        if($user && $user['role'] === 'candidate') {
-            return false;
-        }
         if($user && $this->request->action === 'view') {
             return true;
         }

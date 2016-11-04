@@ -64,11 +64,13 @@ class PostulationsController extends AppController {
                 $fileName = $this->request->data['file']['name'];
 
                 // Chemin Pour Le Serveur
-                //$uploadPath = 'c:\\home\\site\\wwwroot\\webroot\\img\\uploads\\files\\';
-                //$uploadFile = $uploadPath.$fileName;
+                $uploadPath = 'c:\\home\\site\\wwwroot\\webroot\\img\\uploads\\files\\';
+                $uploadFile = $uploadPath.$fileName;
+                
+                
                 // LOCAL SEULEMENT
-                $uploadPath = 'uploads/files/';
-                $uploadFile = 'img/' . $uploadPath . $fileName;
+                //$uploadPath = 'uploads/files/';
+                //$uploadFile = 'img/' . $uploadPath . $fileName;
 
                 if (move_uploaded_file($this->request->data['file']['tmp_name'], $uploadFile)) {
                     $uploadData = $this->Files->newEntity();
