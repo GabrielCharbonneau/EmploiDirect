@@ -178,7 +178,6 @@ class PostulationsController extends AppController {
                         return true;
                     }
                 }
-                //TODO
             }
         }
 
