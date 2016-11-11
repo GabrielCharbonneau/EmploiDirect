@@ -58,7 +58,7 @@ class AppController extends Controller
                 'controller' => 'Offers',
                 'action' => 'index'
             ]
-        ]); // TODO ajuster la redirection du login/logout
+        ]);
     }
 
     /**
