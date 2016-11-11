@@ -3,6 +3,7 @@ namespace App\Test\TestCase\Controller;
 
 use App\Controller\EnterprisesController;
 use Cake\TestSuite\IntegrationTestCase;
+use Cake\ORM\TableRegistry;
 
 /**
  * App\Controller\EnterprisesController Test Case
@@ -19,7 +20,12 @@ class EnterprisesControllerTest extends IntegrationTestCase
         'app.enterprises',
         'app.offers'
     ];
-
+    
+    public function setUp() {
+        parent::setUp();
+        $this->Enterprises = TableRegistry::get('Enterprises');
+      }
+    
     /**
      * Test index method
      *
@@ -47,7 +53,15 @@ class EnterprisesControllerTest extends IntegrationTestCase
      */
     public function testAdd()
     {
-        $this->markTestIncomplete('Not implemented yet.');
+        $total = $this->Enterprises->find()->count();
+        $this->assertEquals(1, $total);
+
+        $data = ['name' => 'Lorem ipsum dolor sit a',
+            'description' => 'Lorem ipsum dolor sit amet',];
+        $enterprise = $this->Enterprises->newEntity($data);
+        $this->Enterprises->save($enterprise);
+        $newTotal = $this->Enterprises->find()->count();
+        $this->assertEquals(2, $newTotal);
     }
 
     /**

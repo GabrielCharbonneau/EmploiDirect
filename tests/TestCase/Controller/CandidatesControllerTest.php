@@ -3,6 +3,8 @@ namespace App\Test\TestCase\Controller;
 
 use App\Controller\CandidatesController;
 use Cake\TestSuite\IntegrationTestCase;
+use Cake\ORM\TableRegistry;
+
 
 /**
  * App\Controller\CandidatesController Test Case
@@ -19,6 +21,11 @@ class CandidatesControllerTest extends IntegrationTestCase
         'app.candidates'
     ];
 
+    public function setUp() {
+        parent::setUp();
+        $this->Candidates = TableRegistry::get('Candidates');
+    }
+    
     /**
      * Test index method
      *
@@ -46,7 +53,14 @@ class CandidatesControllerTest extends IntegrationTestCase
      */
     public function testAdd()
     {
-        $this->markTestIncomplete('Not implemented yet.');
+        $total = $this->Candidates->find()->count();
+        $this->assertEquals(1, $total);
+        
+        $data = ['FirstName' => 'Jean', 'LastName' => 'LeMaigre', 'Address' => '55 rue allo'];
+        $candidate = $this->Candidates->newEntity($data);
+        $this->Candidates->save($candidate);
+        $newTotal = $this->Candidates->find()->count();
+        $this->assertEquals(2, $newTotal);
     }
 
     /**
