@@ -22,16 +22,8 @@
             <td><?= h($postulation->PresentationLetter) ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('Id') ?></th>
-            <td><?= $this->Number->format($postulation->id) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('IdCandidate') ?></th>
-            <td><?= $this->Number->format($postulation->idCandidate) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('IdOffer') ?></th>
-            <td><?= $this->Number->format($postulation->idOffer) ?></td>
+            <th scope="row"><?= __('Offer') ?></th>
+            <td><?= $this->Html->link(__('View offer'), ['controller' => 'Offers', 'action' => 'view', $postulation->idOffer]) ?></td>
         </tr>
         <tr>
             <th scope="row"><?= __('DatePostulation') ?></th>

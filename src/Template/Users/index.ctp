@@ -21,7 +21,7 @@
                 <td><?= h($user->email) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $user->id]) ?>
-                    <?= $this->Html->link(__('Deactivate'), ['controller' => 'Users', 'action' => 'deactivate', $user->id]) ?>
+                    <td><?php if(h($user->active) == 1) : ?><?= $this->Html->link(__('Deactivate'), ['controller' => 'Users', 'action' => 'deactivate', $user->id]) ?><?php endif; ?><?php if(h($user->active) == 0) : ?><?= $this->Html->link(__('Activate'), ['controller' => 'Users', 'action' => 'activate', $user->id]) ?><?php endif; ?></td>
                 </td>
             </tr>
             <?php endforeach; ?>

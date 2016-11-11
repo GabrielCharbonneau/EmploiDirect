@@ -135,6 +135,19 @@ class UsersController extends AppController {
         $this->set('user', $user);
 
     }
+    
+    public function activate($id = null) {
+        $user = $this->Users->get($id);
+        
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $user['active'] = 1;
+            $this->Users->save($user);
+            return $this->redirect(['action' => 'index']);
+        }
+        
+        $this->set('user', $user);
+
+    }
 
     public function beforeFilter(Event $event) {
         parent::beforeFilter($event);

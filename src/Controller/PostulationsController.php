@@ -69,8 +69,8 @@ class PostulationsController extends AppController {
                 
                 
                 // LOCAL SEULEMENT
-                //$uploadPath = 'uploads/files/';
-                //$uploadFile = 'img/' . $uploadPath . $fileName;
+                // $uploadPath = 'uploads/files/';
+                // $uploadFile = 'img/' . $uploadPath . $fileName;
 
                 if (move_uploaded_file($this->request->data['file']['tmp_name'], $uploadFile)) {
                     $uploadData = $this->Files->newEntity();
@@ -163,6 +163,7 @@ class PostulationsController extends AppController {
                 return false;
             }
             if ($action === 'view') {
+               
                 $this->loadModel('Enterprises');
                 $this->loadModel('Offers');
 
@@ -191,7 +192,7 @@ class PostulationsController extends AppController {
                 }
                 return true;
             }
-            if ($action === 'historique') {
+            if ($action === 'historique' || $action === 'view') {
                 $this->loadModel('Candidates');
                 $candidateProfile = $this->Candidates->find('all', ['conditions' => ['user_id' => $this->Auth->User('id')]])->first();
                 if ($candidateProfile) {

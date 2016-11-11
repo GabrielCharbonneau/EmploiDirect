@@ -14,7 +14,7 @@
         <thead>
             <tr>
                 <th scope="col"><?= $this->Paginator->sort('Date Postulation') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('CV') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('Offer') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Presentation Letter') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
@@ -23,7 +23,7 @@
             <?php foreach ($postulations2 as $postulation): ?>
             <tr>
                 <td><?= h($postulation->DatePostulation) ?></td>
-                <td><?= h($postulation->CV) ?></td>
+                <td><?= $this->Html->link(__('View offer'), ['controller' => 'Offers', 'action' => 'view', $postulation->idOffer]) ?></td>
                 <td><?= h($postulation->PresentationLetter) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $postulation->id]) ?>

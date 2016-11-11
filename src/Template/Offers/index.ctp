@@ -26,12 +26,14 @@
                 <th scope="col"><?= $this->Paginator->sort('Job Situation') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Job Beginning Date') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('enterprise_id') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('Activation') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
         </thead>
         <tbody>
-            
-            <?php foreach ($offers as $offer): if(strtotime($offer->publicationBeginningDate) <= time() && strtotime($offer->publicationEndDate) >= time()) : if($offer['active']) : ?>
+            <?php
+                $loguser = $this->request->session()->read('Auth.User'); ?>
+            <?php foreach ($offers as $offer): if(strtotime($offer->publicationBeginningDate) <= time() && strtotime($offer->publicationEndDate) >= time()) : if($offer['active'] || $loguser['role'] == 'admin') : ?>
             <tr>
                 <td><?= h($offer->name) ?></td>
                 <td><?= h($offer->jobName) ?></td>
@@ -42,6 +44,9 @@
                 <td><?= h($offer->jobSituation) ?></td>
                 <td><?= h($offer->jobBeginningDate) ?></td>
                 <td><?= $offer->has('enterprise') ? $this->Html->link($offer->enterprise->name, ['controller' => 'Enterprises', 'action' => 'view', $offer->enterprise->id]) : '' ?></td>
+                <?php
+		if ($loguser && ($loguser['role'] === 'admin')) : ?>
+                <td><?php if(h($offer->active) == 1) : ?><?= $this->Html->link(__('Deactivate'), ['controller' => 'Offers', 'action' => 'deactivate', $offer->id]) ?><?php endif; ?><?php if(h($offer->active) == 0) : ?><?= $this->Html->link(__('Activate'), ['controller' => 'Offers', 'action' => 'activate', $offer->id]) ?><?php endif; ?></td> <?php endif; ?>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $offer->id]) ?>
                 </td>

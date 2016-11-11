@@ -27,6 +27,32 @@ class OffersController extends AppController {
         $this->set(compact('offers'));
         $this->set('_serialize', ['offers']);
     }
+    
+    public function deactivate($id = null) {
+        $offer = $this->Offers->get($id);
+        
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $offer['active'] = 0;
+            $this->Offers->save($offer);
+            return $this->redirect(['action' => 'index']);
+        }
+        
+        $this->set('offer', $offer);
+
+    }
+    
+    public function activate($id = null) {
+        $offer = $this->Offers->get($id);
+        
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $offer['active'] = 1;
+            $this->Offers->save($offer);
+            return $this->redirect(['action' => 'index']);
+        }
+        
+        $this->set('offer', $offer);
+
+    }
 
     /**
      * View method
